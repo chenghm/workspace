@@ -22,10 +22,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="dmcweb" />
         <module name="secondapp" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="1.7" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="activemq-mqtt" target="1.7" />
+      <module name="dmcweb" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
 
