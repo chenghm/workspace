@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+	<display-name>activemq-mqtt</display-name>
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+    	<param-value>classpath:spring.xml</param-value>
+	</context-param>
+ 	<context-param>
+       <param-name>contextClass</param-name>
+       <param-value>org.apache.struts2.spring.ClassReloadingXMLWebApplicationContext</param-value>
+   </context-param>
+  	
+  	<listener>
+    	<listener-class> 
+         	org.springframework.web.context.ContextLoaderListener 
+        </listener-class>
+  	</listener>
+   	<listener>
+    	<listener-class> 
+        	org.springframework.web.context.request.RequestContextListener
+        </listener-class>
+  	</listener>
+  
+  	
+  <resource-ref>
+    <description>JMS Connection</description>
+    <res-ref-name>jms/ConnectionFactory</res-ref-name>
+    <res-type>javax.jms.ConnectionFactory</res-type>
+    <res-auth>Container</res-auth>
+    <res-sharing-scope>Shareable</res-sharing-scope>
+  </resource-ref>
+  
+   <resource-ref>
+    <res-ref-name>jms/InspectorTopic</res-ref-name>
+    <res-type>javax.jms.Topic</res-type>
+    <res-auth>Container</res-auth>
+    <res-sharing-scope>Shareable</res-sharing-scope>
+  </resource-ref>
+  
+ <!--  <message-destination-ref>
+    <message-destination-ref-name>jms/InspectorTopic</message-destination-ref-name>
+    <message-destination-type>javax.jms.Topic</message-destination-type>
+    <message-destination-usage>Produces</message-destination-usage>
+    <message-destination-link>jms/InspectorTopic</message-destination-link>
+  </message-destination-ref> -->
+  	
+	<!-- <filter>
+    	<filter-name>StrutsFilter</filter-name>
+    	<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    	<init-param>
+      		<param-name>config</param-name>
+      		<param-value>struts.xml</param-value>
+    	</init-param>
+  	</filter>
+ 	<filter-mapping>
+    	<filter-name>StrutsFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    	<dispatcher>REQUEST</dispatcher>
+    	<dispatcher>INCLUDE</dispatcher>
+    	<dispatcher>FORWARD</dispatcher> 
+  	</filter-mapping> -->
+  
+  	<!-- <error-page>
+    	<error-code>404</error-code>
+    	<location>/errors/404.jsp</location>
+  	</error-page>  -->
+  	
+	<welcome-file-list>
+    	<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

@@ -1,0 +1,11 @@
+<Context reloadable="true">
+	<Resource auth="Container" name="jms/ConnectionFactory"
+		type="org.apache.activemq.ActiveMQConnectionFactory" description="JMS Connection Factory"
+		factory="org.apache.activemq.jndi.JNDIReferenceFactory" brokerURL="vm://0.0.0.0?brokerConfig=xbean:activemq.xml"
+		brokerName="MyActiveMQBroker" />
+
+	<Resource auth="Container" name="jms/InspectorTopic"
+		type="org.apache.activemq.command.ActiveMQTopic" description="Inspector topic"
+		factory="org.apache.activemq.jndi.JNDIReferenceFactory" physicalName="INSPECTOR.PTP" />
+
+</Context>

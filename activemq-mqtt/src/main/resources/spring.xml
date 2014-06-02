@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<jee:jndi-lookup id="connectionFactory"
+		jndi-name="java:comp/env/jms/ConnectionFactory" cache="true"
+		resource-ref="true" lookup-on-startup="true"
+		expected-type="org.apache.activemq.ActiveMQConnectionFactory"
+		proxy-interface="javax.jms.ConnectionFactory">
+	</jee:jndi-lookup>
+
+	<jee:jndi-lookup id="inspectorTopic" jndi-name="java:comp/env/jms/InspectorTopic"
+		cache="true" resource-ref="true" lookup-on-startup="true"
+		expected-type="org.apache.activemq.command.ActiveMQTopic"
+		proxy-interface="javax.jms.Topic">
+	</jee:jndi-lookup>
+
+	<!-- <jee:jndi-lookup id="customerTopic" jndi-name="java:comp/env/jms/CustomerTopic" 
+		cache="true" resource-ref="true" lookup-on-startup="true" expected-type="org.apache.activemq.command.ActiveMQTopic" 
+		proxy-interface="javax.jms.Topic"> </jee:jndi-lookup> -->
+
+	<bean id="singleConnectionFactory"
+		class="org.springframework.jms.connection.SingleConnectionFactory"
+		p:targetConnectionFactory-ref="connectionFactory" />
+
+	<bean id="inspectorJmsTemplate" class="org.springframework.jms.core.JmsTemplate"
+		p:connectionFactory-ref="singleConnectionFactory"
+		p:defaultDestination-ref="inspectorTopic" />
+
+	<!-- <bean id="customerJmsTemplate" class="org.springframework.jms.core.JmsTemplate" 
+		p:connectionFactory-ref="singleConnectionFactory" p:defaultDestination-ref="customerTopic"/> -->
+
+	<bean id="myMessageListener"
+		class="org.springframework.jms.listener.adapter.MessageListenerAdapter"
+		p:delegate-ref="messageDelegate" p:defaultListenerMethod="handleMessage">
+	</bean>
+
+	<jms:listener-container container-type="default"
+		connection-factory="singleConnectionFactory" acknowledge="auto">
+		<jms:listener destination="INSPECTOR.PTP" ref="myMessageListener" />
+	</jms:listener-container>
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="cn.wsn" />
+
+</beans>
