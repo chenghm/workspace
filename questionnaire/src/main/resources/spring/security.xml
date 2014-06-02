@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+        				http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+
+	<global-method-security pre-post-annotations="enabled" />
+	<http pattern="/login.jsp" security="none" />
+	<http pattern="/resources/**" security="none" />
+	<http pattern="/api/**" security="none" />
+	<http pattern="/js/**" security="none" />
+	<http pattern="/css/**" security="none" />
+	<http pattern="/errors/**" security="none" />
+	<http pattern="/images/**" security="none" />
+	<http pattern="/img/**" security="none" />
+
+	<http auto-config="true" use-expressions="true"
+		access-denied-page="/errors/403.jsp">
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<form-login login-page="/login.jsp" login-processing-url="/login"
+			username-parameter="username" password-parameter="password"
+			authentication-failure-url="/login.jsp?error=true"
+			default-target-url="/index.jsp" always-use-default-target='true' />
+		<logout logout-url="/logout" logout-success-url="/login.jsp?logout=true" />
+		<session-management session-fixation-protection="migrateSession">
+			<concurrency-control max-sessions="1"
+				expired-url="/login.jsp?expired=true" />
+		</session-management>
+	</http>
+	<authentication-manager>
+		<authentication-provider>
+			<jdbc-user-service data-source-ref="dataSource"
+				users-by-username-query="select username,password,1 as enabled from t_manager where username = ?"
+				authorities-by-username-query="select username,'ROLE_ADMIN' from t_manager where username = ?" />
+		</authentication-provider>
+	</authentication-manager>
+	
+	<!-- <global-method-security secured-annotations="enabled"  >
+	    	<protect-pointcut access="ROLE_CUSTOMER,ROLE_ADMIN" expression="execution(* com.questionnaire.jaxrs.service.CustomerService.getCustomer(*))"/>
+	    	
+	    	<protect-pointcut
+			expression="execution(* com.questionnaire.jaxrs.service.CustomerService.addCustomer(*))"
+			access="ROLE_ADMIN" />
+		<protect-pointcut
+			expression="execution(* com.questionnaire.jaxrs.service.CustomerService.updateCustomer(Long,com.questionnaire.jaxrs.service.Customer))"
+			access="ROLE_ADMIN" />
+		<protect-pointcut
+			expression="execution(* com.questionnaire.jaxrs.service.CustomerService.deleteCustomer(*))"
+			access="ROLE_ADMIN" />
+		<protect-pointcut
+			expression="execution(* com.questionnaire.jaxrs.service.CustomerService.getOrder(*))"
+			access="ROLE_CUSTOMER,ROLE_ADMIN" />
+	</global-method-security>
+	<http auto-config="true" use-expressions="true">
+	    <http-basic/>
+	</http>
+	<authentication-manager>
+	    <authentication-provider>
+	        <user-service>
+	            <user name="bob" authorities="ROLE_CUSTOMER" password="bobspassword"/>
+	            <user name="fred" authorities="ROLE_CUSTOMER, ROLE_ADMIN" password="fredspassword"/>
+	        </user-service>
+	        
+	    </authentication-provider>
+	    
+	</authentication-manager> -->
+</bean:beans>

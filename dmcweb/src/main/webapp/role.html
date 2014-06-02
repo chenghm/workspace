@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>角色管理</title>
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/redmond/jquery-ui-1.10.3.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/ui.jqgrid.css" />
+<!-- <style>
+html, body {
+   #margin: 0;
+    #padding: 0;
+    #font-size: 75%;
+    font-size: 14px;
+}
+</style>  -->
+<script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
+<script src="js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+<script src="js/i18n/grid.locale-cn.js" type="text/javascript"></script>
+<script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="js/role.js" type="text/javascript"></script>
+
+
+
+</head>
+<body>
+	<table id="gridTable">
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+	<div id="gridPager"></div>
+
+	<!-- <div>
+		<button onclick="openDialog4Adding()">添加角色</button>
+		<button onclick="openDialog4Updating()">修改角色</button>
+		<button onclick="deleteRole()">删除角色</button>
+		<button onclick="loadUser()">分配用户</button>
+	</div> -->
+
+	<div id="consoleDlg">
+		<div id="formContainer">
+			<form id="consoleForm">
+				<input type="hidden" id="id" name="role.id" />
+				<table>
+					<tr>
+						<th>角色编码：</th>
+						<td><input type="text" id="code" name="role.code" /> <font
+							color="red">*</font><span style="color: red" id="error_role_code"></span></td>
+					</tr>
+					<tr>
+						<th>角色名称：</th>
+						<td><input type="text" id="name" name="role.name" /> <font
+							color="red">*</font><span style="color: red" id="error_role_name"></span></td>
+					</tr>
+
+					<tr>
+						<th>备注：</th>
+						<td><input type="text" id="descn" name="role.descn" /></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

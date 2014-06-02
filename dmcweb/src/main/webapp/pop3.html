@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>POP3邮箱记录</title>
+
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/redmond/jquery-ui-1.10.3.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/ui.jqgrid.css" />
+<script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
+<script src="js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+<script src="js/i18n/grid.locale-cn.js" type="text/javascript"></script>
+<script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
+<script src="js/pop3.js" type="text/javascript"></script>
+
+<style >
+html,body,div,h1, h2, h3, h4, h5, h6, h7, p, blockquote, form, ul, ol, dl,li{
+    font-size: 12px;
+    font-family:Lucida Grande,​Lucida Sans,​Arial,​sans-serifLucida Grande,​Lucida Sans,​Arial,​sans-serif;
+}
+
+
+div.ui-jqdialog-content td.form-view-data {
+    white-space: normal !important;
+    height: auto;
+    vertical-align: middle;
+    padding-top: 3px; padding-bottom: 3px
+}
+</style>
+</head>
+<body>
+<form >
+<div id="mysearch">
+	
+	<input type="radio" name="time" value="1">当天</input>
+	<input type="radio" name="time" value="2">昨天</input>
+	<input type="radio" name="time" value="3">三天</input>
+	<input type="radio" name="time" value="4">一周</input>
+	<input type="radio" name="time" value="5">一月</input>
+	<input type="radio" name="time" value="6">选择时间：</input>
+	从<input type="text" id="startTime" style="width:80px"/>
+	到<input type="text" id="endTime" style="width:80px"/>
+	&nbsp;&nbsp;附件：<select id="attach">
+		<option value=""></option>
+		<option value="1">有</option>
+		<option value="0">无</option>
+	</select>
+	&nbsp;&nbsp;黑名单：<select id="black">
+		<option value=""></option>
+		<option value="1">是</option>
+		<option value="0">否</option>
+	</select>
+	&nbsp;&nbsp;
+	<input type="button" value="查询" onclick="mysearch()"/>&nbsp;&nbsp;
+	<input type="reset" value="重置" />
+	</div>
+	</form>
+	<table id="gridTable" >
+		<tr>
+			<td></td>
+		</tr>
+	</table>
+	<div id="gridPager"></div>
+
+	<div id="consoleDlg">
+		<div id="formContainer">
+			<form id="consoleForm">
+				
+				<table width="100%">
+				
+				<tr>
+						<th align="right" style="width: 15%">源IP地址：</th>
+						<td style="width: 35%"><div id="sourceIp" ></div></td>
+						<th align="right" style="width: 15%">目标IP地址：</th>
+						<td style="width: 35%" ><div id="destIp" ></div></td>
+							
+					</tr>
+					<tr>
+						<th align="right">源归属地：</th>
+						<td><div id="sourceBelong"></div></td>
+						<th align="right">目标归属地：</th>
+						<td><div id="destBelong"></div></td>
+							
+					</tr>
+					
+					<tr>
+						<th align="right">源MAC：</th>
+						<td><div id="sourceMac"></div></td>
+						<th align="right">目标MAC：</th>
+						<td><div id="destMac"></div></td>
+							
+					</tr>
+					
+					<tr>
+						<th align="right">账户：</th>
+						<td><div id="account"></div></td>
+						<th align="right">密码：</th>
+						<td><div id="password"></div></td>
+							
+					</tr>
+					<tr>
+						<th align="right">发送者：</th>
+						<td><div id="from"></div></td>
+						<th align="right">接收者：  </th>
+						<td><div id="to"></div></td>	
+					</tr>
+					<tr>
+						<th align="right">抄送：</th>
+						<td><div id="cc"></div></td>
+						<th align="right">密送：  </th>
+						<td><div id="bcc"></div></td>	
+					</tr>
+					<tr>
+						
+							
+					</tr>
+					<tr>
+						<th align="right">主题：  </th>
+						<td colspan="3"><div id="subject"></div></td>
+							
+					</tr>
+					<!-- <tr>
+						<th align="right">附件：  </th>
+						<td><div id="attach"></div>
+						</td>
+							
+					</tr> -->
+					<tr>
+						<th valign="top" align="right" >邮件：  </th>
+						<td colspan="3"><div id="content" ></div></td>
+							
+					</tr>
+					
+				</table>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

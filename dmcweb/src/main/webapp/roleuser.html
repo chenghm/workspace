@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>角色分配用户</title>
+<link rel="stylesheet" href="css/jquery.multiselect2side.css"
+	type="text/css" media="screen" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.multiselect2side.js"></script>
+<script type="text/javascript">
+	$().ready(function() {
+		
+		
+		$.getUrlParam = function(name)
+		{
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		if (r!=null) return unescape(r[2]); return null;
+		}
+		var roleId = $.getUrlParam('roleId');
+		$("#roleId").val(roleId);
+		
+		$('#roleuser').multiselect2side({
+			selectedPosition : 'right',
+			moveOptions : false,
+			labelsx : '未分配用户',
+			labeldx : '已分配用户',
+			autoSort : true,
+			autoSortAvailable : true
+		});
+		
+		
+		$.ajax({  
+			 url:"useraction_findbyrole?roleId="+roleId,
+			 type: 'GET',  
+		     dataType: 'json',
+			 success: function(data){  
+				 $.each(data.users, function(i, user){
+					 	$('#roleuser').multiselect2side('addOption', {name:user.username+":"+user.chineseName , value:user.id, selected: true})
+				    }); 
+		        }  
+		});
+		
+		$.ajax({  
+			 url:"useraction_findnorole?roleId="+roleId,
+			 type: 'GET',  
+		     dataType: 'json',
+			 success: function(data){  
+				 $.each(data.users, function(i, user){
+					 	$('#roleuser').multiselect2side('addOption', {name:user.username+":"+user.chineseName , value:user.id, selected: false})
+				    }); 
+		        }  
+		});
+		
+		
+		
+
+
+	});
+	
+	function save(){
+		
+		var userIds = "";
+	    $("#userIdsms2side__dx option").each(function()
+	{
+	    	userIds+=$(this).val()+",";
+	});
+	    userIds= userIds.substring(0,userIds.length-1);
+	    
+		 $.ajax({  
+			 url:"roleuseraction_save?userIds="+userIds+"&roleId="+$("#roleId").val(),
+			 type: 'post',  
+		     dataType: 'json',
+		     
+			 success: function(data){  
+				 	if(data.ajaxResult=="success"){
+				 alert("保存成功。");
+				window.close();
+			 
+		 		}else{
+		 			alert(data.ajaxResult);
+		 		}
+		 		
+		 
+					
+		        }  
+		});
+		
+		
+	}
+	
+</script>
+
+</head>
+<body>
+	<form action="" method="post">
+	<input type="hidden" name="roleId" id="roleId"/>
+	<select name="userIds" id='roleuser' multiple='multiple'  >
+	</select>
+	<br/>
+	<input  type="button" value="保存" onclick="save();"/>
+	</form>
+</body>
