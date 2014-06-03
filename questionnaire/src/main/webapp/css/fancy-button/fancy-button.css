@@ -1,27 +1,25 @@
-﻿.fancy-radio
-{
+﻿.fancy-radio {
     width: 16px;
     height: 16px;
     background-repeat: no-repeat;
     background-position: center;
     background-image: url('../../img/fancy-button/radio_off.png');
-    cursor:pointer;
+    cursor: pointer;
 }
-.fancy-radio.on
-{
+
+.fancy-radio.on {
     background-image: url('../../img/fancy-button/radio_on.png');
 }
 
-.fancy-checkbox
-{
+.fancy-checkbox {
     width: 16px;
     height: 16px;
     background-repeat: no-repeat;
     background-position: center;
     background-image: url('../../img/fancy-button/chekbox_off.png');
-    cursor:pointer;
+    cursor: pointer;
 }
-.fancy-checkbox.on
-{
+
+.fancy-checkbox.on {
     background-image: url('../../img/fancy-button/chekbox_on.png');
 }

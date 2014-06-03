@@ -33,8 +33,7 @@
                     });
 
                 }
-                else 
-                {
+                else {
                     element.addClass('fancy-checkbox');
                     var fakeCheckbox = $('<div/>');
                     fakeCheckbox.addClass('fancy-checkbox');

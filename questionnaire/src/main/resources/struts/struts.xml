@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
-    "http://struts.apache.org/dtds/struts-2.3.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<include file="struts-default.xml"></include>
-	<include file="struts-plugin.xml"></include>
-	<constant name="struts.objectFactory" value="spring" />
-	<constant name="struts.i18n.encoding" value="UTF-8" />
-	<constant name="struts.action.excludePattern" value="/api/.*" />
+    <include file="struts-default.xml"></include>
+    <include file="struts-plugin.xml"></include>
+    <constant name="struts.objectFactory" value="spring"/>
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+    <constant name="struts.action.excludePattern" value="/api/.*"/>
 
-	<package name="questionnaire" namespace="/"
-		extends="struts-default,json-default">
+    <package name="questionnaire" namespace="/"
+             extends="struts-default,json-default">
 
-		<default-action-ref name="default" />
-		<global-results>
-			<result name="login">login.jsp</result>
-			<result name="exception">error.jsp</result>
-			<!-- <result name="error">error.jsp</result> -->
-			<result name="infoError">info.jsp</result>
-			<result name="success" type="json">
-				<param name="includeProperties">
-					list.*,result.*, vo.*,ajaxResult,gridModel.*,rows,
-					page,total,record,messages.*
-				</param>
-				<param name="noCache">true</param>
-				<param name="ignoreHierarchy">false</param>
-			</result>
-			<result name="error" type="json">
-				<param name="includeProperties">
-					list.*,result.*, ajaxResult,gridModel.*,rows,
-					page,total,record,messages.*
-				</param>
-				<param name="noCache">true</param>
-				<param name="ignoreHierarchy">false</param>
-			</result>
-		</global-results>
+        <default-action-ref name="default"/>
+        <global-results>
+            <result name="login">login.jsp</result>
+            <result name="exception">error.jsp</result>
+            <!-- <result name="error">error.jsp</result> -->
+            <result name="infoError">info.jsp</result>
+            <result name="success" type="json">
+                <param name="includeProperties">
+                    list.*,result.*, vo.*,ajaxResult,gridModel.*,rows,
+                    page,total,record,messages.*
+                </param>
+                <param name="noCache">true</param>
+                <param name="ignoreHierarchy">false</param>
+            </result>
+            <result name="error" type="json">
+                <param name="includeProperties">
+                    list.*,result.*, ajaxResult,gridModel.*,rows,
+                    page,total,record,messages.*
+                </param>
+                <param name="noCache">true</param>
+                <param name="ignoreHierarchy">false</param>
+            </result>
+        </global-results>
 
-		<global-exception-mappings>
-			<exception-mapping exception="java.lang.Exception"
-				result="exception" />
-			<exception-mapping exception="java.lang.RuntimeException"
-				result="infoError" />
-		</global-exception-mappings>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception"
+                               result="exception"/>
+            <exception-mapping exception="java.lang.RuntimeException"
+                               result="infoError"/>
+        </global-exception-mappings>
 
-		<action name="manageraction_*" class="managerAction" method="{1}" />
-		<action name="useraction_*" class="userAction" method="{1}" />
-		<action name="questionnaireaction_*" class="questionnaireAction"
-			method="{1}" />
-		<action name="questionaction_*" class="questionAction" method="{1}" />
+        <action name="manageraction_*" class="managerAction" method="{1}"/>
+        <action name="useraction_*" class="userAction" method="{1}"/>
+        <action name="questionnaireaction_*" class="questionnaireAction"
+                method="{1}"/>
+        <action name="questionaction_*" class="questionAction" method="{1}"/>
 
-	</package>
+    </package>
 </struts>    

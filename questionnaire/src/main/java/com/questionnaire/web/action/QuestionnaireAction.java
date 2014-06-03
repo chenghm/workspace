@@ -1,226 +1,225 @@
 package com.questionnaire.web.action;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-
 import com.opensymphony.xwork2.ActionContext;
 import com.questionnaire.dao.impl.Criterion;
 import com.questionnaire.entity.Questionnaire;
 import com.questionnaire.service.IQuestionnaireService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class QuestionnaireAction extends BaseAction<Questionnaire> {
 
-	private static final long serialVersionUID = 1L;
-	private String name;
-	private String age;
-	private String education;
-	private Date endtime;
-	private String gender;
-	private String income;
-	private String occupation;
-	private int point;
-	private int gridTable_id;
-	private String id;
-	private String oper;
-	private List<Questionnaire> list;
+    private static final long serialVersionUID = 1L;
+    private String name;
+    private String age;
+    private String education;
+    private Date endtime;
+    private String gender;
+    private String income;
+    private String occupation;
+    private int point;
+    private int gridTable_id;
+    private String id;
+    private String oper;
+    private List<Questionnaire> list;
 
-	@Autowired
-	private IQuestionnaireService questionnaireService;
+    @Autowired
+    private IQuestionnaireService questionnaireService;
 
-	public String find() {
-		return this.refreshGridModel();
-	}
-	
-	public String findAll(){
-		list = questionnaireService.findAll();
-		return SUCCESS;
-	}
+    public String find() {
+        return this.refreshGridModel();
+    }
 
-	public String add() {
-		try {
-			Questionnaire questionnaire = new Questionnaire();
-			questionnaire.setName(name);
-			questionnaire.setAge(age);
-			questionnaire.setEducation(education);
-			questionnaire.setEndtime(endtime);
-			questionnaire.setGender(gender);
-			questionnaire.setIncome(income);
-			questionnaire.setPoint(point);
-			questionnaire.setOccupation(occupation);
-			questionnaireService.create(questionnaire);
-			return SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.addActionError(e.getMessage());
-			return ERROR;
-		}
-	}
+    public String findAll() {
+        list = questionnaireService.findAll();
+        return SUCCESS;
+    }
 
-	public String edit() {
-		try {
-			Questionnaire questionnaire = new Questionnaire();
-			if("edit".equals(oper)){
-				questionnaire.setId(Integer.parseInt(id));
-			}
-			questionnaire.setName(name);
-			questionnaire.setAge(age);
-			questionnaire.setEducation(education);
-			questionnaire.setEndtime(endtime);
-			questionnaire.setGender(gender);
-			questionnaire.setIncome(income);
-			questionnaire.setPoint(point);
-			questionnaire.setOccupation(occupation);
-			questionnaireService.modify(questionnaire);
-			return SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.addActionError(e.getMessage());
-			return ERROR;
-		}
-	}
+    public String add() {
+        try {
+            Questionnaire questionnaire = new Questionnaire();
+            questionnaire.setName(name);
+            questionnaire.setAge(age);
+            questionnaire.setEducation(education);
+            questionnaire.setEndtime(endtime);
+            questionnaire.setGender(gender);
+            questionnaire.setIncome(income);
+            questionnaire.setPoint(point);
+            questionnaire.setOccupation(occupation);
+            questionnaireService.create(questionnaire);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.addActionError(e.getMessage());
+            return ERROR;
+        }
+    }
 
-	public String delete() {
-		try {
-			String ids =  ((String[])(ActionContext.getContext().getParameters().get("ids")))[0];
-			questionnaireService.delete(Questionnaire.class,ids);
-			return SUCCESS;
-		} catch (Exception e) {
-			e.printStackTrace();
-			this.addActionError(e.getMessage());
-			return ERROR;
-		}
-	}
+    public String edit() {
+        try {
+            Questionnaire questionnaire = new Questionnaire();
+            if ("edit".equals(oper)) {
+                questionnaire.setId(Integer.parseInt(id));
+            }
+            questionnaire.setName(name);
+            questionnaire.setAge(age);
+            questionnaire.setEducation(education);
+            questionnaire.setEndtime(endtime);
+            questionnaire.setGender(gender);
+            questionnaire.setIncome(income);
+            questionnaire.setPoint(point);
+            questionnaire.setOccupation(occupation);
+            questionnaireService.modify(questionnaire);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.addActionError(e.getMessage());
+            return ERROR;
+        }
+    }
 
-	@Override
-	public long getResultSize() {
-		return questionnaireService.getQuestionnaireCount();
-	}
+    public String delete() {
+        try {
+            String ids = ((String[]) (ActionContext.getContext().getParameters().get("ids")))[0];
+            questionnaireService.delete(Questionnaire.class, ids);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.addActionError(e.getMessage());
+            return ERROR;
+        }
+    }
 
-	@Override
-	public List<Questionnaire> listResults(int from, int length) {
-		return questionnaireService.getQuestionnaires(from, length);
-	}
+    @Override
+    public long getResultSize() {
+        return questionnaireService.getQuestionnaireCount();
+    }
 
-	@Override
-	public long getResultSize(String groupOp, List<Criterion> criteria) {
-		return questionnaireService.getQuestionnaireCount(groupOp, criteria);
-	}
+    @Override
+    public List<Questionnaire> listResults(int from, int length) {
+        return questionnaireService.getQuestionnaires(from, length);
+    }
 
-	@Override
-	public List<Questionnaire> listResults(String groupOp,
-			List<Criterion> criteria, int from, int length) {
-		return questionnaireService.getQuestionnaires(groupOp, criteria, from,
-				length);
-	}
+    @Override
+    public long getResultSize(String groupOp, List<Criterion> criteria) {
+        return questionnaireService.getQuestionnaireCount(groupOp, criteria);
+    }
 
-	public String getName() {
-		return name;
-	}
+    @Override
+    public List<Questionnaire> listResults(String groupOp,
+                                           List<Criterion> criteria, int from, int length) {
+        return questionnaireService.getQuestionnaires(groupOp, criteria, from,
+                length);
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getAge() {
-		return age;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setAge(String age) {
-		this.age = age;
-	}
+    public String getAge() {
+        return age;
+    }
 
-	public String getEducation() {
-		return education;
-	}
+    public void setAge(String age) {
+        this.age = age;
+    }
 
-	public void setEducation(String education) {
-		this.education = education;
-	}
+    public String getEducation() {
+        return education;
+    }
 
-	public Date getEndtime() {
-		return endtime;
-	}
+    public void setEducation(String education) {
+        this.education = education;
+    }
 
-	public void setEndtime(Date endtime) {
-		this.endtime = endtime;
-	}
+    public Date getEndtime() {
+        return endtime;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    public void setEndtime(Date endtime) {
+        this.endtime = endtime;
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public String getIncome() {
-		return income;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public void setIncome(String income) {
-		this.income = income;
-	}
+    public String getIncome() {
+        return income;
+    }
 
-	public String getOccupation() {
-		return occupation;
-	}
+    public void setIncome(String income) {
+        this.income = income;
+    }
 
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
-	}
+    public String getOccupation() {
+        return occupation;
+    }
 
-	public int getPoint() {
-		return point;
-	}
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
 
-	public void setPoint(int point) {
-		this.point = point;
-	}
+    public int getPoint() {
+        return point;
+    }
 
-	public IQuestionnaireService getQuestionnaireService() {
-		return questionnaireService;
-	}
+    public void setPoint(int point) {
+        this.point = point;
+    }
 
-	public void setQuestionnaireService(
-			IQuestionnaireService questionnaireService) {
-		this.questionnaireService = questionnaireService;
-	}
+    public IQuestionnaireService getQuestionnaireService() {
+        return questionnaireService;
+    }
 
-	public int getGridTable_id() {
-		return gridTable_id;
-	}
+    public void setQuestionnaireService(
+            IQuestionnaireService questionnaireService) {
+        this.questionnaireService = questionnaireService;
+    }
 
-	public void setGridTable_id(int gridTable_id) {
-		this.gridTable_id = gridTable_id;
-	}
+    public int getGridTable_id() {
+        return gridTable_id;
+    }
+
+    public void setGridTable_id(int gridTable_id) {
+        this.gridTable_id = gridTable_id;
+    }
 
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getOper() {
-		return oper;
-	}
+    public String getOper() {
+        return oper;
+    }
 
-	public void setOper(String oper) {
-		this.oper = oper;
-	}
+    public void setOper(String oper) {
+        this.oper = oper;
+    }
 
-	public List<Questionnaire> getList() {
-		return list;
-	}
+    public List<Questionnaire> getList() {
+        return list;
+    }
 
-	public void setList(List<Questionnaire> list) {
-		this.list = list;
-	}
+    public void setList(List<Questionnaire> list) {
+        this.list = list;
+    }
 
 }

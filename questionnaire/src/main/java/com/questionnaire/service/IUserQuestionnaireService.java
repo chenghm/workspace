@@ -6,6 +6,6 @@ import com.questionnaire.entity.User;
 @SuppressWarnings("rawtypes")
 public interface IUserQuestionnaireService extends IBaseService {
 
-	void saveUserQuestionnaire(Questionnaire questionnaire, User user,
-			String answers);
+    void saveUserQuestionnaire(Questionnaire questionnaire, User user,
+                               String answers);
 }

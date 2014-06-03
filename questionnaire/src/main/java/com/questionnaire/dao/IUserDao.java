@@ -1,25 +1,25 @@
 package com.questionnaire.dao;
 
-import java.util.List;
-
 import com.questionnaire.dao.impl.Criterion;
 import com.questionnaire.entity.User;
 
+import java.util.List;
+
 public interface IUserDao extends IBaseDao<User> {
-	
-	long getUsersCount();
 
-	List<User> getUsers(int pageNo, int pageSize);
+    long getUsersCount();
 
-	int createUser(User user) throws  Exception;
+    List<User> getUsers(int pageNo, int pageSize);
 
-	long getUsersCount(String groupOp,List<Criterion> criteria) throws Exception;
+    int createUser(User user) throws Exception;
 
-	List<User> getUsers(String groupOp,List<Criterion> criteria, int from, int length) throws Exception;
+    long getUsersCount(String groupOp, List<Criterion> criteria) throws Exception;
 
-	User findUserByUsername(String username);
+    List<User> getUsers(String groupOp, List<Criterion> criteria, int from, int length) throws Exception;
 
-	User findUserByUsernameAndPassword(String username, String password);
+    User findUserByUsername(String username);
+
+    User findUserByUsernameAndPassword(String username, String password);
 
 
 }

@@ -1,14 +1,14 @@
-﻿function setSidebarHeight(){
-	setTimeout(function(){
-var height = $(document).height();
-    $('.grid_12').each(function () {
-        height -= $(this).outerHeight();
-    });
-    height -= $('#site_info').outerHeight();
-	height-=1;
-	//salert(height);
-    $('.sidemenu').css('height', height);					   
-						},100);
+﻿function setSidebarHeight() {
+    setTimeout(function () {
+        var height = $(document).height();
+        $('.grid_12').each(function () {
+            height -= $(this).outerHeight();
+        });
+        height -= $('#site_info').outerHeight();
+        height -= 1;
+        //salert(height);
+        $('.sidemenu').css('height', height);
+    }, 100);
 }
 
 //Dashboard chart
@@ -86,63 +86,77 @@ function drawPointsChart(containerElement) {
     }
 
     var plot3 = $.jqplot(containerElement, [cosPoints, sinPoints, powPoints1, powPoints2],
-    {
-        title: 'Line Style Options',
-        // Series options are specified as an array of objects, one object
-        // for each series.
-        series: [
-          {
-              // Change our line width and use a diamond shaped marker.
-              lineWidth: 2,
-              markerOptions: { style: 'dimaond' }
-          },
-          {
-              // Don't show a line, just show markers.
-              // Make the markers 7 pixels with an 'x' style
-              showLine: false,
-              markerOptions: { size: 7, style: "x" }
-          },
-          {
-              // Use (open) circlular markers.
-              markerOptions: { style: "circle" }
-          },
-          {
-              // Use a thicker, 5 pixel line and 10 pixel
-              // filled square markers.
-              lineWidth: 5,
-              markerOptions: { style: "filledSquare", size: 10 }
-          }
-      ]
-    }
-  );
+        {
+            title: 'Line Style Options',
+            // Series options are specified as an array of objects, one object
+            // for each series.
+            series: [
+                {
+                    // Change our line width and use a diamond shaped marker.
+                    lineWidth: 2,
+                    markerOptions: { style: 'dimaond' }
+                },
+                {
+                    // Don't show a line, just show markers.
+                    // Make the markers 7 pixels with an 'x' style
+                    showLine: false,
+                    markerOptions: { size: 7, style: "x" }
+                },
+                {
+                    // Use (open) circlular markers.
+                    markerOptions: { style: "circle" }
+                },
+                {
+                    // Use a thicker, 5 pixel line and 10 pixel
+                    // filled square markers.
+                    lineWidth: 5,
+                    markerOptions: { style: "filledSquare", size: 10 }
+                }
+            ]
+        }
+    );
 
 }
 
 //draw pie chart
 function drawPieChart(containerElement) {
     var data = [
-    ['Heavy Industry', 12], ['Retail', 9], ['Light Industry', 14],
-    ['Out of home', 16], ['Commuting', 7], ['Orientation', 9]
-  ];
+        ['Heavy Industry', 12],
+        ['Retail', 9],
+        ['Light Industry', 14],
+        ['Out of home', 16],
+        ['Commuting', 7],
+        ['Orientation', 9]
+    ];
     var plot1 = jQuery.jqplot('chart1', [data],
-    {
-        seriesDefaults: {
-            // Make this a pie chart.
-            renderer: jQuery.jqplot.PieRenderer,
-            rendererOptions: {
-                // Put data labels on the pie slices.
-                // By default, labels show the percentage of the slice.
-                showDataLabels: true
-            }
-        },
-        legend: { show: true, location: 'e' }
-    }
-  );
+        {
+            seriesDefaults: {
+                // Make this a pie chart.
+                renderer: jQuery.jqplot.PieRenderer,
+                rendererOptions: {
+                    // Put data labels on the pie slices.
+                    // By default, labels show the percentage of the slice.
+                    showDataLabels: true
+                }
+            },
+            legend: { show: true, location: 'e' }
+        }
+    );
 }
 //draw donut chart
 function drawDonutChart(containerElement) {
-    var s1 = [['a', 6], ['b', 8], ['c', 14], ['d', 20]];
-    var s2 = [['a', 8], ['b', 12], ['c', 6], ['d', 9]];
+    var s1 = [
+        ['a', 6],
+        ['b', 8],
+        ['c', 14],
+        ['d', 20]
+    ];
+    var s2 = [
+        ['a', 8],
+        ['b', 12],
+        ['c', 6],
+        ['d', 9]
+    ];
 
     var plot3 = $.jqplot(containerElement, [s1, s2], {
         seriesDefaults: {
@@ -212,9 +226,15 @@ function drawBarchart(containerElement) {
 //draw bubble chart
 function drawBubbleChart(containerElement) {
 
-    var arr = [[11, 123, 1236, ""], [45, 92, 1067, ""],
-  [24, 104, 1176, ""], [50, 23, 610, "A"],
-  [18, 17, 539, ""], [7, 89, 864, ""], [2, 13, 1026, ""]];
+    var arr = [
+        [11, 123, 1236, ""],
+        [45, 92, 1067, ""],
+        [24, 104, 1176, ""],
+        [50, 23, 610, "A"],
+        [18, 17, 539, ""],
+        [7, 89, 864, ""],
+        [2, 13, 1026, ""]
+    ];
 
     var plot1b = $.jqplot(containerElement, [arr], {
         seriesDefaults: {
@@ -238,28 +258,28 @@ function drawBubbleChart(containerElement) {
     // Now bind function to the highlight event to show the tooltip
     // and highlight the row in the legend. 
     $('#' + containerElement).bind('jqplotDataHighlight',
-    function (ev, seriesIndex, pointIndex, data, radius) {
-        var chart_left = $('#' + containerElement).offset().left,
-        chart_top = $('#' + containerElement).offset().top,
-        x = plot1b.axes.xaxis.u2p(data[0]),  // convert x axis unita to pixels
-        y = plot1b.axes.yaxis.u2p(data[1]);  // convert y axis units to pixels
-        var color = 'rgb(50%,50%,100%)';
-        $('#tooltip1b').css({ left: chart_left + x + radius + 5, top: chart_top + y });
-        $('#tooltip1b').html('<span style="font-size:14px;font-weight:bold;color:' +
-      color + ';">' + data[3] + '</span><br />' + 'x: ' + data[0] +
-      '<br />' + 'y: ' + data[1] + '<br />' + 'r: ' + data[2]);
-        $('#tooltip1b').show();
-        $('#legend1b tr').css('background-color', '#ffffff');
-        $('#legend1b tr').eq(pointIndex + 1).css('background-color', color);
-    });
+        function (ev, seriesIndex, pointIndex, data, radius) {
+            var chart_left = $('#' + containerElement).offset().left,
+                chart_top = $('#' + containerElement).offset().top,
+                x = plot1b.axes.xaxis.u2p(data[0]),  // convert x axis unita to pixels
+                y = plot1b.axes.yaxis.u2p(data[1]);  // convert y axis units to pixels
+            var color = 'rgb(50%,50%,100%)';
+            $('#tooltip1b').css({ left: chart_left + x + radius + 5, top: chart_top + y });
+            $('#tooltip1b').html('<span style="font-size:14px;font-weight:bold;color:' +
+                color + ';">' + data[3] + '</span><br />' + 'x: ' + data[0] +
+                '<br />' + 'y: ' + data[1] + '<br />' + 'r: ' + data[2]);
+            $('#tooltip1b').show();
+            $('#legend1b tr').css('background-color', '#ffffff');
+            $('#legend1b tr').eq(pointIndex + 1).css('background-color', color);
+        });
 
     // Bind a function to the unhighlight event to clean up after highlighting.
     $('#' + containerElement).bind('jqplotDataUnhighlight',
-      function (ev, seriesIndex, pointIndex, data) {
-          $('#tooltip1b').empty();
-          $('#tooltip1b').hide();
-          $('#' + containerElement + ' tr').css('background-color', '#ffffff');
-      });
+        function (ev, seriesIndex, pointIndex, data) {
+            $('#tooltip1b').empty();
+            $('#tooltip1b').hide();
+            $('#' + containerElement + ' tr').css('background-color', '#ffffff');
+        });
 }
 
 //-------------------------------------------------------------- */
@@ -502,6 +522,6 @@ function setupLeftMenu() {
         })
         .find("a.menuitem:first").addClass("current")
         .next().addClass("current");
-		
-		$('#section-menu .submenu').css('height','auto');
+
+    $('#section-menu .submenu').css('height', 'auto');
 }
