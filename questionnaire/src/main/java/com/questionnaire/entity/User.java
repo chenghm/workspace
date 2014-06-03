@@ -23,12 +23,13 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @Entity
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 @Table(name="T_USER")
-@SequenceGenerator(name = "SEQ_USER", sequenceName = "SEQ_USER")
+//@SequenceGenerator(name = "SEQ_USER", sequenceName = "SEQ_USER")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER")
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private String age;

@@ -8,8 +8,8 @@
 		<properties>
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" /> -->
-			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+			 <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<!--<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />-->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.transaction.manager_lookup_class"
 				value="com.atomikos.icatch.jta.hibernate3.TransactionManagerLookup" />

@@ -16,12 +16,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "T_USER_QUESTION")
-@SequenceGenerator(name = "SEQ_USER_QUESTION", sequenceName = "SEQ_USER_QUESTION")
+//@SequenceGenerator(name = "SEQ_USER_QUESTION", sequenceName = "SEQ_USER_QUESTION")
 public class UserQuestion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="SEQ_USER_QUESTION")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="SEQ_USER_QUESTION")
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 	
 	private String answer;

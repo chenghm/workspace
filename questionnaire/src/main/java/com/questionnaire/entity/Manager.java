@@ -12,12 +12,13 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="Manager.findAll", query="SELECT m FROM Manager m")
 @Table(name="T_MANAGER")
-@SequenceGenerator(name = "SEQ_MANAGER", sequenceName = "SEQ_MANAGER")
+//@SequenceGenerator(name = "SEQ_MANAGER", sequenceName = "SEQ_MANAGER")
 public class Manager implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="SEQ_MANAGER")
+//	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="SEQ_MANAGER")
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private String name;

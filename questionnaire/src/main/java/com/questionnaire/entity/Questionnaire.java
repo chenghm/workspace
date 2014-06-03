@@ -29,12 +29,13 @@ import com.questionnaire.util.CustomDateSerializer;
 @Entity
 @NamedQuery(name = "Questionnaire.findAll", query = "SELECT q FROM Questionnaire q")
 @Table(name = "T_QUESTIONNAIRE")
-@SequenceGenerator(name = "SEQ_QUESTIONNAIRE", sequenceName = "SEQ_QUESTIONNAIRE")
+//@SequenceGenerator(name = "SEQ_QUESTIONNAIRE", sequenceName = "SEQ_QUESTIONNAIRE")
 public class Questionnaire implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_QUESTIONNAIRE")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_QUESTIONNAIRE")
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	private String age;

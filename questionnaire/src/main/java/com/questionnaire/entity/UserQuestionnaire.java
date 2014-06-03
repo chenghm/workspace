@@ -11,12 +11,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "T_USER_QUESTIONNAIRE")
 @NamedQuery(name = "UserQuestionnaire.findAll", query = "SELECT u FROM UserQuestionnaire u")
-@SequenceGenerator(name = "SEQ_USER_QUESTIONNAIRE", sequenceName = "SEQ_USER_QUESTIONNAIRE")
+//@SequenceGenerator(name = "SEQ_USER_QUESTIONNAIRE", sequenceName = "SEQ_USER_QUESTIONNAIRE")
 public class UserQuestionnaire implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_QUESTIONNAIRE")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_QUESTIONNAIRE")
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;
 
 	// bi-directional many-to-one association to User
