@@ -1,98 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
 
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
-        				http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
-        				http://www.springframework.org/schema/util  
-                     	http://www.springframework.org/schema/util/spring-util-3.2.xsd ">
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://www.springframework.org/schema/security"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        				http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
 
-	<global-method-security pre-post-annotations="enabled" />
-	<http pattern="/login.jsp" security="none" />
-	<http pattern="/resources/**" security="none" />
-	<http pattern="/js/**" security="none" />
-	<http pattern="/css/**" security="none" />
-	<http pattern="/errors/**" security="none" />
-	<http pattern="/images/**" security="none" />
-	<http pattern="/img/**" security="none" />
-	<http pattern="/content/**" security="none" />
+    <global-method-security pre-post-annotations="enabled"/>
+    <http pattern="/login.jsp" security="none"/>
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/errors/**" security="none"/>
+    <http pattern="/images/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+    <http pattern="/content/**" security="none"/>
 
-	<!-- <bean:bean id="myWebInvocationPrivilegeEvaluator" class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator"> 
-		<bean:constructor-arg ref="myFilterSecurityInterceptor" /> </bean:bean> -->
-	<http auto-config="false" use-expressions="true"
-		access-denied-page="/errors/403.jsp" entry-point-ref="loginUrlAuthenticationEntryPoint">
-		<intercept-url pattern="/**" access="isAuthenticated()" />
-		<!-- <form-login login-page="/login.jsp" login-processing-url="/login" 
-			username-parameter="username" password-parameter="password" authentication-failure-url="/login.jsp?error=true" 
-			default-target-url="/index.jsp" always-use-default-target='true' /> -->
-		<logout logout-url="/logout" logout-success-url="/login.jsp?logout=true" />
-		<session-management session-fixation-protection="migrateSession">
-			<concurrency-control max-sessions="1"
-				expired-url="/login.jsp?expired=true" />
-		</session-management>
-		<!-- <custom-filter ref="myFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" 
-			/> -->
-		<custom-filter position="FORM_LOGIN_FILTER"
-			ref="userAuthenticationProcessingFilter" />
-	</http>
+    <bean:bean id="myWebInvocationPrivilegeEvaluator"
+               class="org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator">
+        <bean:constructor-arg ref="myFilterSecurityInterceptor"/>
+    </bean:bean>
+    <http auto-config="true" use-expressions="true"
+          access-denied-page="/errors/403.jsp">
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <form-login login-page="/login.jsp" login-processing-url="/login"
+                    username-parameter="username" password-parameter="password"
+                    authentication-failure-url="/login.jsp?error=true"
+                    default-target-url="/index.jsp" always-use-default-target='true'/>
+        <logout logout-url="/logout" logout-success-url="/login.jsp?logout=true"/>
+        <session-management session-fixation-protection="migrateSession">
+            <concurrency-control max-sessions="1"
+                                 expired-url="/login.jsp?expired=true"/>
+        </session-management>
+        <custom-filter ref="myFilterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR"
+                />
+        <!--<custom-filter position="FORM_LOGIN_FILTER"
+            ref="userAuthenticationProcessingFilter" />-->
+    </http>
 
-	<bean:bean id="loginUrlAuthenticationEntryPoint"
-		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-		<bean:property name="loginFormUrl" value="/login.jsp" />
-	</bean:bean>
+    <!--<bean:bean id="loginUrlAuthenticationEntryPoint"
+        class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <bean:property name="loginFormUrl" value="/login.jsp" />
+    </bean:bean>-->
 
-	<bean:bean id="loginSuccessHandler"
-		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
-		<bean:property name="defaultTargetUrl" value="/index.jsp" />
-	</bean:bean>
+    <!--<bean:bean id="loginSuccessHandler"
+        class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <bean:property name="defaultTargetUrl" value="/index.jsp" />
+    </bean:bean>
 
-	<bean:bean id="userAuthenticationProcessingFilter"
-		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
-		<bean:property name="usernameParameter" value="username" />
-		<bean:property name="passwordParameter" value="password" />
-		<bean:property name="authenticationManager" ref="authenticationManager" />
-		<bean:property name="authenticationFailureHandler" ref="loginMappingFailureHandler" />
-		<bean:property name="authenticationSuccessHandler" ref="loginSuccessHandler" />
-		<bean:property name="filterProcessesUrl" value="/login" /> 
-	</bean:bean>
+    <bean:bean id="userAuthenticationProcessingFilter"
+        class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <bean:property name="usernameParameter" value="username" />
+        <bean:property name="passwordParameter" value="password" />
+        <bean:property name="authenticationManager" ref="authenticationManager" />
+        <bean:property name="authenticationFailureHandler" ref="loginMappingFailureHandler" />
+        <bean:property name="authenticationSuccessHandler" ref="loginSuccessHandler" />
+        <bean:property name="filterProcessesUrl" value="/login" />
+    </bean:bean>
 
-	<bean:bean id="loginMappingFailureHandler"
-		class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
-		<bean:property name="exceptionMappings" ref="failureUrlMap" />
-	</bean:bean>
-	
-	<util:map id="failureUrlMap" map-class="java.util.HashMap">
-		<bean:entry
-			key="org.springframework.security.authentication.BadCredentialsException"
-			value="/login.jsp?error=bad.credentials" />
-		<bean:entry
-			key="org.springframework.security.authentication.DisabledException"
-			value="/login.jsp?error=disabled.user" />
-	</util:map>
+    <bean:bean id="loginMappingFailureHandler"
+        class="org.springframework.security.web.authentication.ExceptionMappingAuthenticationFailureHandler">
+        <bean:property name="exceptionMappings" ref="failureUrlMap" />
+    </bean:bean>
 
-	
-	<!-- <authentication-manager alias="authenticationManager">
-		<authentication-provider ref="userAuthenticationProvider" />
-	</authentication-manager> -->
- 
-	<authentication-manager alias="authenticationManager">
-		<authentication-provider user-service-ref="myUserDetailService">
-			<password-encoder ref="passwordEncoder" />
-		</authentication-provider>
-	</authentication-manager>
+    <util:map id="failureUrlMap" map-class="java.util.HashMap">
+        <bean:entry
+            key="org.springframework.security.authentication.BadCredentialsException"
+            value="/login.jsp?error=bad.credentials" />
+        <bean:entry
+            key="org.springframework.security.authentication.DisabledException"
+            value="/login.jsp?error=disabled.user" />
+    </util:map>
+-->
 
-	
-	<bean:bean id="mySecurityMetadataSource"  
+    <!-- <authentication-manager alias="authenticationManager">
+        <authentication-provider ref="userAuthenticationProvider" />
+    </authentication-manager> -->
+
+    <authentication-manager alias="myAuthenticationManager">
+        <authentication-provider user-service-ref="myUserDetailService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+
+    <!--<bean:bean id="mySecurityMetadataSource"
         class="org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource">  
         <bean:constructor-arg  
             type="org.springframework.security.web.util.UrlMatcher" ref="antUrlPathMatcher" />  
         <bean:constructor-arg type="java.util.LinkedHashMap"  
             ref="securityRequestMapFactoryBean" />  
-    </bean:bean>  
-  
-    <bean:bean id="antUrlPathMatcher"  
+    </bean:bean>  -->
+
+    <!--<bean:bean id="antUrlPathMatcher"
         class="org.springframework.security.web.util.AntUrlPathMatcher" />  
           
     <bean:bean id="affirmativeBasedAccessDecisionManager"  
@@ -101,16 +102,20 @@
     </bean:bean>  
   
     <bean:bean name="roleDecisionVoter"  
-        class="org.springframework.security.access.vote.RoleVoter" />  
-  
+        class="org.springframework.security.access.vote.RoleVoter" />  -->
 
-	<bean:bean id="passwordEncoder"
-		class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
 
-	<!-- <bean:bean id="myFilterSecurityInterceptor" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor"> 
-		<bean:property name="authenticationManager" ref="myAuthenticationManager" 
-		/> <bean:property name="accessDecisionManager" ref="myAccessDecisionManager" 
-		/> <bean:property name="securityMetadataSource" ref="mySecurityMetadataSource" 
-		/> </bean:bean> -->
+    <bean:bean id="passwordEncoder"
+               class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+    <bean:bean id="myFilterSecurityInterceptor"
+               class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <bean:property name="authenticationManager" ref="myAuthenticationManager"
+                />
+        <bean:property name="accessDecisionManager" ref="myAccessDecisionManager"
+                />
+        <bean:property name="securityMetadataSource" ref="mySecurityMetadataSource"
+                />
+    </bean:bean>
 
 </bean:beans>

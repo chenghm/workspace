@@ -1,3 +1,4 @@
+/*
 package com.cinsec.dmc.security;
 
 import java.sql.SQLException;
@@ -48,3 +49,4 @@ public class UserAuthenticationProvider implements AuthenticationProvider  {
 	}
 
 }
+*/
