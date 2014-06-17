@@ -28,7 +28,7 @@
 				<param name="noCache">true</param>
 				<param name="ignoreHierarchy">false</param>
 			</result>
-			
+
 			<result name="downloadSuccess" type="stream">
 				<param name="contentType">application/octet-stream</param>
 				<param name="inputName">inputStream</param>
@@ -221,19 +221,20 @@
 			method="{1}" />
 		<action name="mailpenetrationaction_*" class="mailPenetrationAction"
 			method="{1}" />
-			
-			<action name="syscontrolaction_*" class="sysControlAction"></action>
-			
-			<action name="sysstatusaction" class="sysStatusAction" method="execute">
-				<result name="success">sysstatus.jsp</result>
-			</action>
-			
-			<action name="installconfigaction" class="installConfigAction" method="execute">
-				<result name="success" >installconfig.jsp</result>
-			</action>
-			
-			<action name="realtimeaction" class="realtimeAction" method="execute">
-				<result name="success" >realtime.jsp</result>
-			</action>
+
+		<action name="syscontrolaction_*" class="sysControlAction"></action>
+
+		<action name="sysstatusaction" class="sysStatusAction" method="execute">
+			<result name="success">sysstatus.jsp</result>
+		</action>
+
+		<action name="installconfigaction" class="installConfigAction"
+			method="execute">
+			<result name="success">installconfig.jsp</result>
+		</action>
+
+		<action name="realtimeaction" class="realtimeAction" method="execute">
+			<result name="success">realtime.jsp</result>
+		</action>
 	</package>
 </struts>    

@@ -24,7 +24,8 @@
 <!-- <link rel="stylesheet" href="css/jquery-ui.css" />
 <script src="js/jquery-1.9.1.js"></script>
 <script src="js/jquery-ui.js"></script> -->
-<link rel="stylesheet" type="text/css" media="screen" href="css/redmond/jquery-ui-1.10.3.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/redmond/jquery-ui-1.10.3.custom.css" />
 <script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 <!-- <script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
@@ -55,8 +56,7 @@ BEGIN: load jqplot
 	src="js/jqPlot/plugins/jqplot.pointLabels.min.js"></script>
 END: load jqplot
 <script src="js/setup.js" type="text/javascript"></script> -->
-<script type="text/javascript"
-	src="js/jupdatepasswordaction.jquery.js"></script>
+<script type="text/javascript" src="js/jupdatepasswordaction.jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	$(this).jUpdatePasswordAction();
@@ -86,8 +86,11 @@ $(document).ready(function() {
 					</div>
 					<div class="floatleft marginleft10">
 						<ul class="inline-ul floatleft">
-							<li>欢迎 <a href="#" onclick="window.open('index_main', 'main') "  ><sec:authentication property="name" /></a></li>
-							<li><a href="#" onclick="window.open('useraction_initModifyProfile', 'main') "  >修改资料</a></li>
+							<li>欢迎 <a href="#"
+								onclick="window.open('index_main', 'main') "><sec:authentication
+										property="name" /></a></li>
+							<li><a href="#"
+								onclick="window.open('useraction_initModifyProfile', 'main') ">修改资料</a></li>
 							<li><a href="#" onclick="quit()">退出</a></li>
 						</ul>
 
@@ -99,7 +102,7 @@ $(document).ready(function() {
 		</div>
 		<div class="clear"></div>
 	</div>
-	<div >
+	<div>
 		<div id="password-dialog" title="修改密码">
 			<form id="password-form">
 				<fieldset>
