@@ -49,8 +49,14 @@ public class ContextFactory implements ApplicationContextAware {
 	public static User getUser() {
 		SecurityContext context = SecurityContextHolder.getContext();
 		Authentication authentication = context.getAuthentication();
-		return authentication == null ? null : (User) authentication
-				.getPrincipal();
+		if (authentication == null) {
+			return null;
+		}
+		Object principal = authentication.getPrincipal();
+		if (principal instanceof User) {
+			return (User) principal;
+		}
+		return null;
 	}
 
 	public static String getUsername() {

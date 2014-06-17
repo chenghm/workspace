@@ -1,5 +1,6 @@
 package com.cinsec.dmc.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -35,6 +36,9 @@ public class ResourceService extends BaseService<Resource> implements IResourceS
 	@Override
 	public List<Resource> getCurrentUserResources(){
 		User user  =ContextFactory.getUser();
+		if(user==null){
+			return new ArrayList<Resource>(0);
+		}
 		return resourceDao.getUserRights(user);
 	}
 
