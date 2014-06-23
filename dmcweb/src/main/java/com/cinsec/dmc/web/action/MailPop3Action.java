@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.aspose.email.MailMessage;
 import com.cinsec.dmc.dao.impl.Criterion;
 import com.cinsec.dmc.entity.MailRecord;
 import com.cinsec.dmc.ipparse.IPLocation;
@@ -119,6 +120,10 @@ public class MailPop3Action extends BaseAction<MailRecord> {
 				vo.setContent(content);
 				vo.setContentPath(webmailpath + File.separator
 					+ result.getId() + File.separator + content);
+				InputStream fis = new FileInputStream(vo.getContentPath());
+				MailMessage msg = MailMessage.load(fis);
+				vo.setBody((""+msg.getHtmlBody()).replaceFirst("<br><center>This is an evaluation copy of Aspose.Email for Java</center><br><a href=\"http://www.aspose.com/corporate/purchase/end-user-license-agreement.aspx\"><center>View EULA Online</center></a><hr>", ""));
+				fis.close();
 			}
 
 //			String cookie = result.getCookie();

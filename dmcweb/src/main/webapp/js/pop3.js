@@ -169,6 +169,7 @@ $(function() {
 									"<a href='mailpop3action_download?attach="
 											+ rowData.contentPath + "' >"
 											+ rowData.content + "</a>");
+							consoleDlg.find("#body").html(rowData.body);
 							// document.getElementById("content").innerHTML=rowData.content;
 							// 打开对话框
 							consoleDlg.dialog("option", "title", "查看邮件")

@@ -21,6 +21,15 @@ public class MailVo {
 	private String account;
 	private String password;
 	private String isRead;
+	private String body;
+	
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
 
 	public String getFrom() {
 		return from;
