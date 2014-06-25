@@ -63,7 +63,7 @@ public abstract class BaseAction<T> extends ActionSupport {
 		try {
 			List<Criterion> criteria = Collections.emptyList();
 
-			if (search == true) {
+			if (search ) {
 				criteria = new ArrayList<Criterion>();
 
 				// (2)将Filter转化为Criterion列表，并加入总的Criterion列表

@@ -187,6 +187,7 @@
 
 
 		<action name="httpaction_*" class="httpAction" method="{1}" />
+		<action name="generalaction_*" class="generalAction" method="{1}" />
 		<!-- <result name="success" type="json"> <param name="includeProperties"> 
 			result.*, ajaxResult,gridModel.*,rows, page, total, record,messages.* </param> 
 			<param name="noCache">true</param> <param name="ignoreHierarchy">false</param> 
