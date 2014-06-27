@@ -34,26 +34,20 @@ if (window != top)
 						<LI class=user_main_c>
 							<DIV class=user_main_box>
 								<c:choose>
-			<c:when test="${param.error}">
-				<div  style="color:red">
-					登陆失败，用户名或者密码错误！
-				</div>
-			</c:when>
-			<c:when test="${param.expired}">
-				<div  style="color:red">
-					由于同一账号多个回话，您被强制退出。
-				</div>
+									<c:when test="${param.error}">
+										<div style="color: red">登陆失败，用户名或者密码错误！</div>
+									</c:when>
+									<c:when test="${param.expired}">
+										<div style="color: red">由于同一账号多个回话，您被强制退出。</div>
 
-			</c:when>
-			<c:when test="${param.logout}">
-			<div  style="color:red">
-					您已成功注销！
-				</div>
-			</c:when>
-			<c:otherwise>
-				<div class="blank_box"></div>
-			</c:otherwise>
-		</c:choose>
+									</c:when>
+									<c:when test="${param.logout}">
+										<div style="color: red">您已成功注销！</div>
+									</c:when>
+									<c:otherwise>
+										<div class="blank_box"></div>
+									</c:otherwise>
+								</c:choose>
 								<UL>
 									<LI class=user_main_text>用户名：</LI>
 									<LI class=user_main_input><INPUT class=TxtUserNameCssClass

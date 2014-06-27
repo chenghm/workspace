@@ -150,7 +150,7 @@ public abstract class BaseAction<T> extends ActionSupport {
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 
 		return list;

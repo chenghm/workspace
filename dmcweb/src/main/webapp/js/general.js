@@ -232,15 +232,17 @@ var mysearch = function() {
 		searchString = ip;
 		rules += ',{"field":"' + searchField + '","op":"' + searchOper
 				+ '","data":"' + searchString + '"}';
+	}
 
-		var mac = $("#mac").val();
-
+	var mac = $("#mac").val();
+	if (mac != "") {
 		searchField = "mac";
 		searchOper = "bw";
 		searchString = mac;
 		rules += ',{"field":"' + searchField + '","op":"' + searchOper
 				+ '","data":"' + searchString + '"}';
 	}
+
 	var email = $("#email").val();
 	if (email != "") {
 		searchField = "email";

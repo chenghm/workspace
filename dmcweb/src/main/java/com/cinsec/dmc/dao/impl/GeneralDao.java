@@ -90,7 +90,7 @@ public class GeneralDao extends BaseDao<GeneralVo> implements IGeneralDao {
 				}
 				if (field.equals("mac")) {
 					sql.append(" and ( source_mac like '" + value
-							+ "' or dest_ip like '" + value + "' ) ");
+							+ "' or dest_mac like '" + value + "' ) ");
 					break;
 				}
 				if (field.equals("email")) {
@@ -157,7 +157,7 @@ public class GeneralDao extends BaseDao<GeneralVo> implements IGeneralDao {
 				}
 				if (field.equals("mac")) {
 					sql.append(" and ( source_mac like '%" + value
-							+ "%' or dest_ip like '%" + value + "%' ) ");
+							+ "%' or dest_mac like '%" + value + "%' ) ");
 					break;
 				}
 				if (field.equals("email")) {

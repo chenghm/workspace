@@ -1,12 +1,13 @@
-html,body,div,h1, h2, h3, h4, h5, h6, h7, p, blockquote, form, ul, ol, dl,li{
-    font-size: 12px;
-    font-family:Lucida Grande,​Lucida Sans,​Arial,​sans-serifLucida Grande,​Lucida Sans,​Arial,​sans-serif;
+html,body,div,h1,h2,h3,h4,h5,h6,h7,p,blockquote,form,ul,ol,dl,li {
+	font-size: 12px;
+	font-family: Lucida Grande, ​Lucida Sans, ​Arial,
+		​sans-serifLucida Grande, ​Lucida Sans, ​Arial, ​sans-serif;
 }
 
-
 div.ui-jqdialog-content td.form-view-data {
-    white-space: normal !important;
-    height: auto;
-    vertical-align: middle;
-    padding-top: 3px; padding-bottom: 3px
+	white-space: normal !important;
+	height: auto;
+	vertical-align: middle;
+	padding-top: 3px;
+	padding-bottom: 3px
 }

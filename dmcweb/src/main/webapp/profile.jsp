@@ -10,8 +10,9 @@
 <script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 <style type="text/css">
-	html, body {
-    font-size: 11px;
+html,body {
+	font-size: 11px;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -85,38 +86,43 @@
 				<table>
 					<tr>
 						<th align="right">用户名：</th>
-						<td>
-						<input type="hidden" id="id" name="user.id" value="${user.id}" />
-						<input type="hidden" id="username" name="user.username" value="${user.username}" />
-						${user.username}</td>
+						<td><input type="hidden" id="id" name="user.id"
+							value="${user.id}" /> <input type="hidden" id="username"
+							name="user.username" value="${user.username}" />
+							${user.username}</td>
 					</tr>
 					<tr>
 						<th align="right">中文名：</th>
 						<td><input type="text" id="chineseName"
 							name="user.chineseName"
-							class="text ui-widget-content ui-corner-all"  value="${user.chineseName}"/> <font color="red">*</font><span
+							class="text ui-widget-content ui-corner-all"
+							value="${user.chineseName}" /> <font color="red">*</font><span
 							style="color: red" id="error_user_chineseName"></span></td>
 					</tr>
 
 					<tr>
 						<th align="right">邮箱：</th>
 						<td><input type="text" id="email" name="user.email"
-							class="text ui-widget-content ui-corner-all" value="${user.email}"/></td>
+							class="text ui-widget-content ui-corner-all"
+							value="${user.email}" /></td>
 					</tr>
 					<tr>
 						<th align="right">电话：</th>
 						<td><input type="text" id="phone" name="user.phone"
-							class="text ui-widget-content ui-corner-all" value="${user.phone}"/></td>
+							class="text ui-widget-content ui-corner-all"
+							value="${user.phone}" /></td>
 					</tr>
 					<tr>
 						<th align="right">备注：</th>
 						<td><input type="text" id="descn" name="user.descn"
-							class="text ui-widget-content ui-corner-all" value="${user.descn}"/></td>
+							class="text ui-widget-content ui-corner-all"
+							value="${user.descn}" /></td>
 					</tr>
 					<tr>
 						<th>&nbsp;</th>
-						<td><input type="button"  value="提交"
-							class="text ui-widget-content ui-corner-all" onclick="updateprofile();"/></td>
+						<td><input type="button" value="提交"
+							class="text ui-widget-content ui-corner-all"
+							onclick="updateprofile();" /></td>
 					</tr>
 				</table>
 			</form>
@@ -128,32 +134,36 @@
 					<tr>
 						<th align="right">当前密码：</th>
 						<td><input type="password" name="currentPassword"
-							id="currentPassword" <%-- value="${currentPassword }" --%>
-							class="text ui-widget-content ui-corner-all" /> <font
-							color="red">*</font><br /> <span style="color: red"
+							id="currentPassword"
+							<%-- value="${currentPassword }" --%>
+							class="text ui-widget-content ui-corner-all" />
+							<font color="red">*</font><br /> <span style="color: red"
 							id="error_current_password"></span></td>
 					</tr>
 					<tr>
 						<th align="right">新密码：</th>
 						<td><input type="password" name="newPassword"
-							id="newPassword" <%-- value="${newPassword }" --%>
-							class="text ui-widget-content ui-corner-all" /> <font
-							color="red">*</font><br /> <span style="color: red"
+							id="newPassword"
+							<%-- value="${newPassword }" --%>
+							class="text ui-widget-content ui-corner-all" />
+							<font color="red">*</font><br /> <span style="color: red"
 							id="error_new_password"></span></td>
 					</tr>
 
 					<tr>
 						<th align="right">确认密码：</th>
 						<td><input type="password" name="confirmPassword"
-							id="confirmPassword" <%-- value="${confirmPassword }" --%>
-							class="text ui-widget-content ui-corner-all" /> <font
-							color="red">*</font><br /> <span style="color: red"
+							id="confirmPassword"
+							<%-- value="${confirmPassword }" --%>
+							class="text ui-widget-content ui-corner-all" />
+							<font color="red">*</font><br /> <span style="color: red"
 							id="error_confirm_password"></span></td>
 					</tr>
 					<tr>
 						<th>&nbsp;</th>
-						<td><input type="button"  value="提交"
-							class="text ui-widget-content ui-corner-all" onclick="updatepassword()"/></td>
+						<td><input type="button" value="提交"
+							class="text ui-widget-content ui-corner-all"
+							onclick="updatepassword()" /></td>
 					</tr>
 
 

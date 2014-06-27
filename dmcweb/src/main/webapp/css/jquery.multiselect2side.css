@@ -3,7 +3,7 @@
 	width: 100%;
 	padding: 1px;
 	float: left;
-	background : url('') repeat-x; /* HACK FOR CHROME */
+	background: url('') repeat-x; /* HACK FOR CHROME */
 }
 
 .ms2side__select {
@@ -18,7 +18,7 @@
 	height: 20px;
 }
 
-.ms2side__options, .ms2side__updown {
+.ms2side__options,.ms2side__updown {
 	float: left;
 	font-size: 10pt;
 	margin: 0;
@@ -33,20 +33,20 @@
 	font-size: 9pt;
 }
 
-.ms2side__options p, .ms2side__updown p {
+.ms2side__options p,.ms2side__updown p {
 	margin: 2px 0;
 	padding: 0;
 	cursor: pointer;
 	border: 1px solid black;
 }
 
-.ms2side__options p.ms2side_hover, .ms2side__updown p.ms2side_hover {
+.ms2side__options p.ms2side_hover,.ms2side__updown p.ms2side_hover {
 	background-color: #F0F0FF;
 	border-color: #0000FF;
 	cursor: pointer;
 }
 
-.ms2side__options p.ms2side__hide, .ms2side__updown p.ms2side__hide {
+.ms2side__options p.ms2side__hide,.ms2side__updown p.ms2side__hide {
 	cursor: default;
 	color: gray;
 	border: 1px solid gray;
@@ -57,7 +57,6 @@
 	width: 220px;
 	float: left;
 }
-
 
 /* INPUT FOR SEARCH */
 .ms2side__header input {
@@ -76,7 +75,6 @@
 	height: 12px;
 }
 
-
 /* INPUT FOR SELECT SEARCH */
 .ms2side__header select {
 	width: 100px;
@@ -88,7 +86,6 @@
 .ms2side__header select.small {
 	width: 70px;
 }
-
 
 /* REMOVE FILTER OPTION FOR SEARCH */
 .ms2side__header a {

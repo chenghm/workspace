@@ -39,7 +39,7 @@
 		</plugins>
 	</build>
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>com.aspose.email</groupId>
 			<artifactId>aspose-email</artifactId>
 			<version>4.2.1.0</version>

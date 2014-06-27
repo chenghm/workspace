@@ -23,14 +23,14 @@
 			<fieldset>
 				<legend>实时统计</legend>
 				<table width="80%">
-				<tr>
-				<td align="right">IP地址：</td>
+					<tr>
+						<td align="right">IP地址：</td>
 						<td><input type="text" name="ip"></td>
 						<td align="MAC">MAC：</td>
 						<td><input type="text" name="mac"></td>
 						<td>&nbsp;</td>
 						<td>&nbsp;</td>
-				</tr>
+					</tr>
 					<tr>
 						<td align="right">网页浏览：</td>
 						<td><a href="http.html">${httpCount }</a></td>

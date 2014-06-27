@@ -9,52 +9,49 @@
 	href="css/redmond/jquery-ui-1.10.3.custom.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/ui.jqgrid.css" />
-<link rel="stylesheet" type="text/css" 
-	href="css/base.css" />
+<link rel="stylesheet" type="text/css" href="css/base.css" />
 <script src="js/jquery-1.9.0.min.js" type="text/javascript"></script>
 <script src="js/jquery-ui-1.10.3.custom.js" type="text/javascript"></script>
 <script src="js/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
 <script src="js/i18n/grid.locale-cn.js" type="text/javascript"></script>
 <script src="js/jquery.jqGrid.min.js" type="text/javascript"></script>
 <script src="js/netdisk.js" type="text/javascript"></script>
-<style >
-html,body,div,h1, h2, h3, h4, h5, h6, h7, p, blockquote, form, ul, ol, dl,li{
-    font-size: 12px;
-    font-family:Lucida Grande,​Lucida Sans,​Arial,​sans-serifLucida Grande,​Lucida Sans,​Arial,​sans-serif;
+<style>
+html,body,div,h1,h2,h3,h4,h5,h6,h7,p,blockquote,form,ul,ol,dl,li {
+	font-size: 12px;
+	font-family: Lucida Grande, ​Lucida Sans, ​Arial,
+		​sans-serifLucida Grande, ​Lucida Sans, ​Arial, ​sans-serif;
 }
 
-
 div.ui-jqdialog-content td.form-view-data {
-    white-space: normal !important;
-    height: auto;
-    vertical-align: middle;
-    padding-top: 3px; padding-bottom: 3px
+	white-space: normal !important;
+	height: auto;
+	vertical-align: middle;
+	padding-top: 3px;
+	padding-bottom: 3px
 }
 </style>
 
 
 </head>
 <body>
-	<form >
-<div id="mysearch">
-	
-	<input type="radio" name="time" value="1">当天</input>
-	<input type="radio" name="time" value="2">昨天</input>
-	<input type="radio" name="time" value="3">三天</input>
-	<input type="radio" name="time" value="4">一周</input>
-	<input type="radio" name="time" value="5">一月</input>
-	<input type="radio" name="time" value="6">选择时间：</input>
-	从<input type="text" id="startTime" style="width:80px"/>
-	到<input type="text" id="endTime" style="width:80px"/>
-	&nbsp;&nbsp;黑名单：<select id="black">
-		<option value=""></option>
-		<option value="1">是</option>
-		<option value="0">否</option>
-	</select>
-	&nbsp;&nbsp;
-	<input type="button" value="查询" onclick="mysearch()"/>&nbsp;&nbsp;
-	<input type="reset" value="重置" />
-	</div>
+	<form>
+		<div id="mysearch">
+
+			<input type="radio" name="time" value="1">当天</input> <input
+				type="radio" name="time" value="2">昨天</input> <input type="radio"
+				name="time" value="3">三天</input> <input type="radio" name="time"
+				value="4">一周</input> <input type="radio" name="time" value="5">一月</input>
+			<input type="radio" name="time" value="6">选择时间：</input> 从<input
+				type="text" id="startTime" style="width: 80px" /> 到<input
+				type="text" id="endTime" style="width: 80px" /> &nbsp;&nbsp;黑名单：<select
+				id="black">
+				<option value=""></option>
+				<option value="1">是</option>
+				<option value="0">否</option>
+			</select> &nbsp;&nbsp; <input type="button" value="查询" onclick="mysearch()" />&nbsp;&nbsp;
+			<input type="reset" value="重置" />
+		</div>
 	</form>
 	<table id="gridTable">
 		<tr>
