@@ -223,7 +223,9 @@
 		<action name="mailpenetrationaction_*" class="mailPenetrationAction"
 			method="{1}" />
 
-		<action name="syscontrolaction_*" class="sysControlAction"></action>
+		<action name="syscontrolaction_*" class="sysControlAction" method="{1}" >
+			<result name="success">syscontrol.jsp</result>
+		</action>
 
 		<action name="sysstatusaction" class="sysStatusAction" method="execute">
 			<result name="success">sysstatus.jsp</result>

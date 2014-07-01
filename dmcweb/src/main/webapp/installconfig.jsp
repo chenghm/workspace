@@ -104,12 +104,12 @@ div.ui-jqdialog-content td.form-view-data {
 
 					</fieldset>
 				</td>
-				<td>
+				<!-- <td>
 					<fieldset style="height: 200px">
 						<legend>网络连接设置</legend>
 					</fieldset>
 
-				</td>
+				</td> -->
 			</tr>
 		</table>
 	</div>

@@ -83,6 +83,18 @@ public class LinuxSystemTool {
 						+ sys1 + idle1));
 	}
 	
+	public static String getRuntime() {
+		try {
+			String command = "date -d \"$(awk -F. '{print $1}' /proc/uptime) second ago\" +\"%Y-%m-%d %H:%M:%S\"\"";
+			Process process = Runtime.getRuntime().exec(
+					command);
+			BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			return in.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
 	
 	public static float getDisk() {
 		float ioUsage = 0.0f;

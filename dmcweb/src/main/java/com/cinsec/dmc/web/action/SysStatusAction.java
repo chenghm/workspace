@@ -21,6 +21,7 @@ public class SysStatusAction extends ActionSupport {
 
 	@Override
 	public String execute() throws IOException, InterruptedException {
+		duration = LinuxSystemTool.getRuntime();
 		double cpuinfo = LinuxSystemTool.getCpuInfo();
 		NumberFormat format = NumberFormat.getPercentInstance();
 		format.setMinimumFractionDigits(2);

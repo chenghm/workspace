@@ -28,12 +28,12 @@
 					<tr>
 						<td align="right">持续运行时间：</td>
 						<td>
-							<div id="duration"></div>
+							<div id="duration">${duration }</div>
 						</td>
 					</tr>
 					<tr>
 						<td align="right">系统日期：</td>
-						<td><div id="time"></div>
+						<td><div id="time">${time }</div>
 					</tr>
 				</table>
 
@@ -45,16 +45,16 @@
 					<tr>
 						<td align="right">CPU占用率：</td>
 						<td>
-							<div id="cpu"></div>
+							<div id="cpu">${cpu }</div>
 						</td>
 					</tr>
 					<tr>
 						<td align="right">内存占用率：</td>
-						<td><div id="memory"></div>
+						<td><div id="memory">${memory }</div>
 					</tr>
 					<tr>
 						<td align="right">硬盘使用情况：</td>
-						<td><div id="harddisk"></div>
+						<td><div id="harddisk">${harddisk }</div>
 					</tr>
 				</table>
 
