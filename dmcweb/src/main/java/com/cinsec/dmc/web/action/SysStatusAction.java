@@ -28,7 +28,7 @@ public class SysStatusAction extends ActionSupport {
 		cpu = format.format(cpuinfo);
 
 		memory = format
-				.format((LinuxSystemTool.getMemInfo()[0] - LinuxSystemTool
+				.format((double)(LinuxSystemTool.getMemInfo()[0] - LinuxSystemTool
 						.getMemInfo()[1]) / LinuxSystemTool.getMemInfo()[0]);
 		
 		harddisk = format.format(LinuxSystemTool.getDisk());

@@ -45,6 +45,7 @@ public class LinuxSystemTool {
 			else if (str.equalsIgnoreCase("SwapFree:"))
 				result[3] = Integer.parseInt(token.nextToken());
 		}
+		br.close();
 
 		return result;
 	}
@@ -66,7 +67,7 @@ public class LinuxSystemTool {
 		int nice1 = Integer.parseInt(token.nextToken());
 		int sys1 = Integer.parseInt(token.nextToken());
 		int idle1 = Integer.parseInt(token.nextToken());
-
+		br.close();
 		Thread.sleep(1000);
 
 		br = new BufferedReader(
@@ -78,11 +79,12 @@ public class LinuxSystemTool {
 		int sys2 = Integer.parseInt(token.nextToken());
 		int idle2 = Integer.parseInt(token.nextToken());
 
+		br.close();
 		return (float) ((user2 + sys2 + nice2) - (user1 + sys1 + nice1))
 				/ (float) ((user2 + nice2 + sys2 + idle2) - (user1 + nice1
 						+ sys1 + idle1));
 	}
-	
+
 	public static String getRuntime() {
 		try {
 			String command = "date -d \"$(awk -F. '{print $1}' /proc/uptime) second ago\" +\"%Y-%m-%d %H:%M:%S\"\"";
@@ -95,7 +97,7 @@ public class LinuxSystemTool {
 		}
 		return "";
 	}
-	
+
 	public static float getDisk() {
 		float ioUsage = 0.0f;
 		Process pro = null;
@@ -103,28 +105,29 @@ public class LinuxSystemTool {
 		try {
 			String command = "iostat -d -x";
 			pro = r.exec(command);
-			BufferedReader in = new BufferedReader(new InputStreamReader(pro.getInputStream()));
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					pro.getInputStream()));
 			String line = null;
-			int count =  0;
-			while((line=in.readLine()) != null){		
-				if(++count >= 4){
-//					log.info(line);
+			int count = 0;
+			while ((line = in.readLine()) != null) {
+				if (++count >= 4) {
+					// log.info(line);
 					String[] temp = line.split("\\s+");
-					if(temp.length > 1){
-						float util =  Float.parseFloat(temp[temp.length-1]);
-						ioUsage = (ioUsage>util)?ioUsage:util;
+					if (temp.length > 1) {
+						float util = Float.parseFloat(temp[temp.length - 1]);
+						ioUsage = (ioUsage > util) ? ioUsage : util;
 					}
 				}
 			}
-			if(ioUsage > 0){
-				ioUsage /= 100; 
-			}			
+			if (ioUsage > 0) {
+				ioUsage /= 100;
+			}
 			in.close();
 			pro.destroy();
 		} catch (IOException e) {
 			StringWriter sw = new StringWriter();
 			e.printStackTrace(new PrintWriter(sw));
-		}	
+		}
 		return ioUsage;
 	}
 }
