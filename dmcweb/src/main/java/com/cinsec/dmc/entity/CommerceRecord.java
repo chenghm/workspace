@@ -52,6 +52,18 @@ public class CommerceRecord implements Serializable {
 	private Date time;
 
 	private String url;
+	
+	@ManyToOne
+	@JoinColumn(name="node_id")
+	private Node node;
+
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
 
 	public CommerceRecord() {
 	}

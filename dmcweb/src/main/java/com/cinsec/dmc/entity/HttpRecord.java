@@ -1,7 +1,9 @@
 package com.cinsec.dmc.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -50,7 +52,17 @@ public class HttpRecord implements Serializable {
 	private String title;
 
 	private String url;
+	@ManyToOne
+	@JoinColumn(name="node_id")
+	private Node node;
 
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
 	public HttpRecord() {
 	}
 

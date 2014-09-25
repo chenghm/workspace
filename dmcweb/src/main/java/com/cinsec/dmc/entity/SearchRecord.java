@@ -1,7 +1,9 @@
 package com.cinsec.dmc.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -13,7 +15,17 @@ import java.util.Date;
 @Table(name="t_search_record")
 public class SearchRecord implements Serializable {
 	private static final long serialVersionUID = 1L;
+	@ManyToOne
+	@JoinColumn(name="node_id")
+	private Node node;
 
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer id;

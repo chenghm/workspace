@@ -1,7 +1,9 @@
 package com.cinsec.dmc.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.Date;
 
 
@@ -62,7 +64,17 @@ public class ControlRecord implements Serializable {
 
 	@Column(name="tool_name")
 	private String toolName;
+	@ManyToOne
+	@JoinColumn(name="node_id")
+	private Node node;
 
+	public Node getNode() {
+		return node;
+	}
+
+	public void setNode(Node node) {
+		this.node = node;
+	}
 	public ControlRecord() {
 	}
 
