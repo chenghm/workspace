@@ -31,6 +31,11 @@ public class NodeService extends BaseService<Node> implements INodeService {
 	public void modifyNode(Node node) {
 		this.modify(node);
 	}
+	
+	@Override
+	public List<Node> findAllNodes(){
+		return this.getEntityList(Node.class);
+	}
 
 	@Override
 	public long getNodesCount() {

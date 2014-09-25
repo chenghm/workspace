@@ -22,4 +22,6 @@ public interface INodeService extends IBaseService<Node> {
 	List<Node> getNodes(String groupOp, List<Criterion> criteria, int from,
 			int length);
 
+	List<Node> findAllNodes();
+
 }
