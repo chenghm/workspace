@@ -68,7 +68,7 @@
     <dispatcher>INCLUDE</dispatcher>
     <dispatcher>FORWARD</dispatcher>
   </filter-mapping>
-   <login-config>
+  <!--  <login-config>
              Authorization setting for SSL
         <auth-method>CLIENT-CERT</auth-method>
         <realm-name>Client Cert Users-only Area</realm-name>
@@ -82,7 +82,7 @@
         <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-	</security-constraint>
+	</security-constraint> -->
   <error-page>
     <error-code>404</error-code>
     <location>/errors/404.jsp</location>

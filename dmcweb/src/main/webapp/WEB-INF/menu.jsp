@@ -84,7 +84,7 @@ function ShowMenu(obj,noid){
 		<% if("1".equals(node.getIsHttp()) || "1".equals(node.getIsSearch()) || "1".equals(node.getIsThrough())
 				|| "1".equals(node.getIsCommmerce()) || "1".equals(node.getIsSocial()) || "1".equals(node.getIsPassword())) { %>
 		<ul id="NO<%=i %>0" class="no">
-			<% if("1".equals(node.getIsHttp())) { %><li><a href="general.html" target="main">网页浏览</a></li><% } %>
+			<% if("1".equals(node.getIsHttp())) { %><li><a href="http.html?nodeId=<%=nodeId%>" target="main">网页浏览</a></li><% } %>
 			<% if("1".equals(node.getIsSearch())) { %><li><a href="general.html" target="main">搜索引擎</a></li><% } %>
 			<% if("1".equals(node.getIsThrough())) { %><li><a href="general.html" target="main">破网行为</a></li><% } %>
 			<% if("1".equals(node.getIsCommmerce())) { %><li><a href="general.html" target="main">电子商务</a></li><% } %>

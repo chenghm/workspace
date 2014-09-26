@@ -13,7 +13,7 @@ body {
 </head>
 <frameset rows="70,*,36" frameborder="no" border="0" framespacing="0">
 	<frame src="index_header" scrolling="no" noresize>
-	<frameset cols="214,*" frameborder="no" border="0" framespacing="0">
+	<frameset cols="228,*" frameborder="no" border="0" framespacing="0">
 		<frame src="index_menu" name="menu" scrolling="auto" noresize>
 		<frame src="index_main" name="main" scrolling="auto" noresize>
 	</frameset>

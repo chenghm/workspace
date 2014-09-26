@@ -1,4 +1,13 @@
+function getQueryString(name)
+	{
+	     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	     var r = window.location.search.substr(1).match(reg);
+	     if(r!=null)return  unescape(r[2]); return null;
+	}
 $(function() {
+	var nodeId = getQueryString("nodeId");
+	
+	 
 	$("#startTime").datepicker({
 		dateFormat : 'yy-mm-dd'
 	});
@@ -7,7 +16,7 @@ $(function() {
 	});
 	// 配置jqGrid组件
 	$("#gridTable").jqGrid({
-		url : "httpaction_find",
+		url : "httpaction_find?nodeId="+nodeId,
 		datatype : "json",
 		mtype : "GET",
 		height : 370,

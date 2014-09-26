@@ -17,6 +17,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 
 import com.cinsec.dmc.dao.impl.Criterion;
 import com.cinsec.dmc.dao.impl.Criterion.CompareType;
@@ -60,6 +61,16 @@ public abstract class BaseAction<T> extends ActionSupport {
 	protected Map<String, Object> messages = new HashMap<String, Object>();
 
 	public String refreshGridModel() {
+		String nodeId=ServletActionContext.getRequest().getParameter("nodeId");
+		if(StringUtils.isNotEmpty(nodeId)){
+			String str = "{\"field\":\"node.id\",\"op\":\"eq\",\"data\":\"" + nodeId + "\"}";
+			search = true;
+			if(StringUtils.isNotEmpty(filters)){
+				filters=	filters.subSequence(0, filters.length()-2)+","+str+"]}";
+			}else{
+				filters = "{\"groupOp\":\"AND\",\"rules\":["+str+"]}";;
+			}
+		}
 		try {
 			List<Criterion> criteria = Collections.emptyList();
 
