@@ -4,10 +4,12 @@
 	padding: 1px;
 	float: left;
 	background: url('') repeat-x; /* HACK FOR CHROME */
+	margin-left: 0px;
 }
 
 .ms2side__select {
 	float: left;
+	width: 150px;
 }
 
 .ms2side__header {
@@ -27,6 +29,7 @@
 	color: black;
 	text-align: center;
 	overflow: hidden;
+	margin-top: 10px;
 }
 
 .ms2side__updown {
@@ -54,7 +57,8 @@
 }
 
 .ms2side__div select {
-	width: 220px;
+	width: 150px;
+	height: 80px;
 	float: left;
 }
 

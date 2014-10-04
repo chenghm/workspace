@@ -1,4 +1,12 @@
 $(function(){
+	$('#userNode').multiselect2side({
+		selectedPosition : 'right',
+		moveOptions : false,
+		labelsx : '可选择节点',
+		labeldx : '已选择节点',
+		autoSort : true,
+		autoSortAvailable : true
+	});
 	// 配置jqGrid组件
 	$("#gridTable").jqGrid({
 		url: "useraction_find",
@@ -9,7 +17,18 @@ $(function(){
 		colModel: [
 		    // {name:"id",key:true,index:"id",label:"编码",search:true,searchtype:"integer",sorttype:"int",stype:"text",searchrules:{required:true, integer:true}},  
 		      {name:"username",index:"username",label:"用户名",sortable:false},
-		      {name:"chineseName",index:"chineseName",label:"中文名",sortable:false},
+		      {name:"chineseName",index:"chineseName",label:"姓名",sortable:false},
+		      {name:"userType",index:"userType",label:"用户类型",sortable:false,formatter : 'select',
+					edittype : 'select',
+					editoptions : {
+						value : '1:管理员;0:普通用户'
+					},
+					stype : 'select',
+					searchoptions : {
+						sopt : [ "eq", "ne" ],
+						value : '1:管理员;0:普通用户'
+					}},
+			  {name:"node",index:"node",label:"浏览节点",sortable:false,search:false},
 		      {name:"email",index:"email",label:"电子邮箱",sortable:false},
 		      {name:"phone",index:"phone",label:"电话",sortable:false},
 		      {name:"descn",index:"descn",label:"备注",sortable:false}
@@ -49,6 +68,11 @@ $(function(){
 		close : function() {
 		 	 $("#error_user_chineseName").html("");
 			 $("#error_user_username").html(""); 
+			 $("#error_user_password").html("");
+			 $("#error_user_confirmPassword").html(""); 
+			 
+			 $("#nodeIdsms2side__sx").empty();
+			 $("#nodeIdsms2side__dx").empty();
 		}
     });  
 	 
@@ -80,6 +104,10 @@ $(function(){
     dialogButtonPanel.find("button:not(:contains('取消'))").hide();  
     dialogButtonPanel.find("button:contains('创建')").show();  
     consoleDlg.dialog("option", "title", "创建新用户").dialog("open");  
+    
+    
+    
+    loadaddselect();
 };  
 var openDialog4Updating = function() {  
     var consoleDlg = $("#consoleDlg");  
@@ -91,6 +119,7 @@ var openDialog4Updating = function() {
     consoleDlg.dialog("option", "title", "修改用户信息");  
       
     loadSelectedRowData();  
+    loadeditselect( $("#gridTable").jqGrid("getGridParam", "selarrrow"));
 }  ;
 var openDialog4Deleting = function() {  
     var consoleDlg = $("#consoleDlg");  
@@ -130,6 +159,9 @@ var loadSelectedRowData = function() {
                 var consoleDlg = $("#consoleDlg");  
                 consoleDlg.find("#id").val(rowData.id);  
                 consoleDlg.find("#chineseName").val(rowData.chineseName);  
+                consoleDlg.find("#userType").val(rowData.userType);  
+                consoleDlg.find("#password").val(rowData.password);  
+                consoleDlg.find("#confirmPassword").val(rowData.password);
                 consoleDlg.find("#username").val(rowData.username);  
                 consoleDlg.find("#email").val(rowData.email);  
                 consoleDlg.find("#phone").val(rowData.phone);  
@@ -158,6 +190,8 @@ var loadSelectedRowData = function() {
 var addUser = function() {  
 	 $("#error_user_chineseName").html("");
 	 $("#error_user_username").html(""); 
+	 $("#error_user_password").html("");
+	 $("#error_user_confirmPassword").html("");
     var consoleDlg = $("#consoleDlg");  
           
     var pChineseName = $.trim(consoleDlg.find("#chineseName").val());  
@@ -165,7 +199,15 @@ var addUser = function() {
     var pEmail = $.trim(consoleDlg.find("#email").val());  
     var pPhone = $.trim(consoleDlg.find("#phone").val());  
     var pDescn = $.trim(consoleDlg.find("#descn").val());  
-      
+    var pUserType = $.trim(consoleDlg.find("#userType").val());    
+    var selected = $("#nodeIdsms2side__dx").find("option");
+    var pNode="";
+    $.each(selected,function(){
+    	pNode+=","+$(this).text();
+    });
+    if(pNode!=""){
+    	pNode = pNode.substring(1);
+    }
     var params = {  
       /*   "user.chineseName" : pChineseName,  
         "user.username" : pUsername,  
@@ -173,7 +215,7 @@ var addUser = function() {
         "user.phone" : pPhone  */
     };  
       
-    var actionUrl = "useraction_create"  
+    var actionUrl = "useraction_create";  
       
     $.ajax( {  
     	type : 'post',
@@ -189,11 +231,13 @@ var addUser = function() {
                 var dataRow = {  
                     id : data.user.id,   // 从Server端得到系统分配的id  
                     chineseName : pChineseName,  
-                    username : pUsername,  
+                    username : pUsername,
+                    userType:pUserType,
                     email : pEmail,  
                     phone : pPhone,
-                    descn : pDescn
-                };  
+                    descn : pDescn,
+                    node  : pNode
+                    };  
                   
                 var srcrowid = $("#gridTable").jqGrid("getGridParam", "selrow");  
                   
@@ -220,6 +264,8 @@ var addUser = function() {
  var updateUser = function() {  
 	 $("#error_user_chineseName").html("");
 	 $("#error_user_username").html(""); 
+	 $("#error_user_password").html("");
+	 $("#error_user_confirmPassword").html("");
     var consoleDlg = $("#consoleDlg");  
       
     var pId = $.trim(consoleDlg.find("#selectId").val());  
@@ -228,7 +274,15 @@ var addUser = function() {
     var pEmail = $.trim(consoleDlg.find("#email").val());  
     var pPhone = $.trim(consoleDlg.find("#phone").val());  
     var pDescn = $.trim(consoleDlg.find("#descn").val());  
-    
+    var pUserType = $.trim(consoleDlg.find("#userType").val());  
+    var selected = $("#nodeIdsms2side__dx").find("option");
+    var pNode="";
+    $.each(selected,function(){
+    	pNode+=","+$(this).text();
+    });
+    if(pNode!=""){
+    	pNode = pNode.substring(1);
+    }
     var params = {  
         "user.id" : pId,  
         "user.chineseName" : pChineseName,  
@@ -254,9 +308,11 @@ var addUser = function() {
                     id : data.user.id,  
                     chineseName : pChineseName,  
                     username : pUsername,  
+                    userType: pUserType,  
                     email : pEmail,  
                     phone : pPhone,
-                    descn : pDescn
+                    descn : pDescn,
+                    node  : pNode
                 };  
                 $("#gridTable").jqGrid("setRowData", data.user.id, dataRow, {color:"#FF0000"});  
                   
@@ -315,9 +371,80 @@ var deleteUser = function() {
 datePick = function(elem)
 {
    jQuery(elem).datepicker({ dateFormat: 'yy-mm-dd HH24:mm:ss' });
-}
+};
 
 dateTimePick = function(elem)
 {
    jQuery(elem).datetimepicker({ dateFormat: 'yy-mm-dd',timeFormat: "HH:mm:ss" });
+};
+
+//load select on add popup
+function loadaddselect() {
+		/*$('#userNode').multiselect2side({
+			selectedPosition : 'right',
+			moveOptions : false,
+			labelsx : '可选择节点',
+			labeldx : '已选择节点',
+			autoSort : true,
+			autoSortAvailable : true
+		});*/
+
+		$.ajax({
+			url : "nodeaction_findAll",
+			type : 'GET',
+			dataType : 'json',
+			success : function(data) {
+				$.each(data.nodes, function(i, node) {
+					$('#userNode').multiselect2side('addOption', {
+						name : node.number,
+						value : node.id,
+						selected : false
+					});
+				});
+			}
+		});
+	};
+	
+
+
+// load select on edit popup
+function loadeditselect(userId) {
+	/*$('#userNode').multiselect2side({
+		selectedPosition : 'right',
+		moveOptions : false,
+		labelsx : '可选择节点',
+		labeldx : '已选择节点',
+		autoSort : true,
+		autoSortAvailable : true
+	});*/
+
+	$.ajax({
+		url : "nodeaction_findByUser?userId=" + userId,
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+			$.each(data.nodes, function(i, node) {
+				$('#userNode').multiselect2side('addOption', {
+					name : node.number,
+					value : node.id,
+					selected : true
+				});
+			});
+		}
+	});
+
+	$.ajax({
+		url : "nodeaction_findNoUser?userId=" + userId,
+		type : 'GET',
+		dataType : 'json',
+		success : function(data) {
+			$.each(data.nodes, function(i, node) {
+				$('#userNode').multiselect2side('addOption', {
+					name : node.number,
+					value : node.id,
+					selected : false
+				});
+			});
+		}
+	});
 }

@@ -2,9 +2,11 @@ package com.cinsec.dmc.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cinsec.dmc.dao.INodeDao;
 import com.cinsec.dmc.dao.impl.Criterion;
 import com.cinsec.dmc.entity.Node;
 import com.cinsec.dmc.service.INodeService;
@@ -13,6 +15,9 @@ import com.cinsec.dmc.service.INodeService;
 public class NodeService extends BaseService<Node> implements INodeService {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
+	private INodeDao nodeDao;
 
 	@Override
 	public Node getNodeById(Integer id) {
@@ -56,6 +61,16 @@ public class NodeService extends BaseService<Node> implements INodeService {
 	public List<Node> getNodes(String groupOp, List<Criterion> criteria,
 			int from, int length) {
 		return this.getResultList(Node.class, groupOp, criteria, from, length);
+	}
+
+	@Override
+	public List<Node> findByUser(int userId) {
+		return nodeDao.findByUser(userId);
+	}
+
+	@Override
+	public List<Node> findNoUser(int userId) {
+		return nodeDao.findNoUser(userId);
 	}
 
 }

@@ -3,10 +3,12 @@ package com.cinsec.dmc.security;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +18,7 @@ import com.cinsec.dmc.dao.IUserDao;
 import com.cinsec.dmc.entity.User;
 import com.cinsec.dmc.exception.SysException;
 
-@Service("myUserDetailService")
+@Service
 public class MyUserDetailService implements UserDetailsService, Serializable {
 
 	private final class UserDetailsImpl extends User implements UserDetails {
@@ -31,17 +33,19 @@ public class MyUserDetailService implements UserDetailsService, Serializable {
 			setEmail(user.getEmail());
 			setPhone(user.getPhone());
 			setDescn(user.getDescn());
+			setUserType(user.getUserType());
 		}
 
 		@Override
 		public Collection<? extends GrantedAuthority> getAuthorities() {
-			Collection<? extends GrantedAuthority> authorities = null;
-			try {
-				authorities = userDao.getAuthorities(this);
-			} catch (SQLException e) {
-				MyUserDetailService.logger.error(e.getMessage());
-				throw new SysException(e);
+			Collection<GrantedAuthority> authorities = new LinkedList<GrantedAuthority>();
+			String role;
+			if("1".equals(this.getUserType())){
+				role = "ROLE_ADMIN";
+			}else{
+				role= "ROLE_USER";
 			}
+			authorities.add(new SimpleGrantedAuthority(role));
 			return authorities;
 		}
 

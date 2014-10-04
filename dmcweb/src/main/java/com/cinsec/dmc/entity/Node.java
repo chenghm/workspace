@@ -1,6 +1,8 @@
 package com.cinsec.dmc.entity;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -68,7 +70,19 @@ public class Node implements Serializable {
 	private String remark;
 	
 	
+	 @OneToMany(mappedBy = "node",cascade=CascadeType.ALL)
+	    private List<UserNode> userNodes;
+	
+	
 //	private String catchType;
+
+	public List<UserNode> getUserNodes() {
+		return userNodes;
+	}
+
+	public void setUserNodes(List<UserNode> userNodes) {
+		this.userNodes = userNodes;
+	}
 
 	@Transient
 	public String getCatchType() {

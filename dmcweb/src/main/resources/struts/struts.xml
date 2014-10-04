@@ -223,7 +223,8 @@
 		<action name="mailpenetrationaction_*" class="mailPenetrationAction"
 			method="{1}" />
 
-		<action name="syscontrolaction_*" class="sysControlAction" method="{1}" >
+		<action name="syscontrolaction_*" class="sysControlAction"
+			method="{1}">
 			<result name="success">syscontrol.jsp</result>
 		</action>
 
@@ -239,15 +240,15 @@
 		<action name="realtimeaction" class="realtimeAction" method="execute">
 			<result name="success">realtime.jsp</result>
 		</action>
-		
-		<action name="nodeaction_*" class="nodeAction" method="{1}"  >
+
+		<action name="nodeaction_*" class="nodeAction" method="{1}">
 			<result name="success" type="json">
-					<param name="includeProperties">
-						node.*, ajaxResult,gridModel.*,rows, page, total,
-						record,messages.*
-					</param>
-					<param name="noCache">true</param>
-					<param name="ignoreHierarchy">false</param>
+				<param name="includeProperties">
+					node.*, ajaxResult,gridModel.*,rows, page, total,
+					record,messages.*
+				</param>
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
 			</result>
 		</action>
 	</package>

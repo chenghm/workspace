@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cinsec.dmc.dao.IUserDao;
 import com.cinsec.dmc.dao.impl.Criterion;
-import com.cinsec.dmc.entity.Role;
-import com.cinsec.dmc.entity.RoleUser;
+import com.cinsec.dmc.entity.Node;
 import com.cinsec.dmc.entity.User;
+import com.cinsec.dmc.entity.UserNode;
 import com.cinsec.dmc.exception.SysException;
 import com.cinsec.dmc.service.IUserService;
 import com.cinsec.dmc.util.Constants;
@@ -22,6 +24,8 @@ import com.cinsec.dmc.util.UserContext;
 
 @Service
 public class UserService extends BaseService<User> implements IUserService {
+	
+	private static final Logger logger = Logger.getLogger(UserService.class);
 
 	/**
 	 * 
@@ -68,9 +72,10 @@ public class UserService extends BaseService<User> implements IUserService {
 	@Override
 	@Transactional
 	public int createUser(User user) throws Exception {
-		String encodedPassword = passwordEncoder
-				.encode(Constants.DEFAULT_PASSWORD);
-		user.setPassword(encodedPassword);
+//		String encodedPassword = passwordEncoder
+//				.encode(Constants.DEFAULT_PASSWORD);
+		user.setPassword(passwordEncoder
+				.encode(user.getPassword()));
 		String currentUser = UserContext.getCurrentUserName();
 		Date currentTime = new Date();
 		user.setCreatedTime(currentTime);
@@ -107,8 +112,57 @@ public class UserService extends BaseService<User> implements IUserService {
 		u.setEmail(user.getEmail());
 		u.setPhone(user.getPhone());
 		u.setDescn(user.getDescn());
+		u.setUserType(user.getUserType());
+		String newPassword = user.getPassword();
+		if(!u.getPassword().equals(newPassword)){
+			u.setPassword(newPassword);
+		}
 		// this.modify(user);
 		// userDao.modifyUser(user);
+	}
+	
+	@Override
+	@Transactional
+	public void modifyUser(User user,String nodeIds) {
+		
+		try {
+			User u = getUser(user.getId());
+			u.setUpdatedTime(new Date());
+			u.setUpdatedUser(UserContext.getCurrentUserName());
+			u.setChineseName(user.getChineseName());
+			u.setUsername(user.getUsername());
+			u.setEmail(user.getEmail());
+			u.setPhone(user.getPhone());
+			u.setDescn(user.getDescn());
+			u.setUserType(user.getUserType());
+			String newPassword = user.getPassword();
+			if(!u.getPassword().equals(newPassword)){
+				u.setPassword(newPassword);
+			}
+			
+			List<UserNode> userNodes = u.getUserNodes();
+			userNodes.clear();
+			if (StringUtils.isNotEmpty(nodeIds)) {
+			     UserNode userNode;
+			     Node node;
+			     String[] nodeIdArray = nodeIds.split(",");
+			     for (String nodeId : nodeIdArray) {
+			    	 userNode = new UserNode();
+			    	 node = new Node();
+			    	 node.setId(Integer.valueOf(nodeId.trim()));
+			    	 userNode.setUser(u);
+			    	 userNode.setNode(node);;
+			    	 userNodes.add(userNode);
+			     }
+		    
+			 }
+//		 u.setUserNodes(userNodes);
+			userDao.modify(u);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			throw new SysException(e);
+		}
 	}
 
 	//
@@ -218,15 +272,50 @@ public class UserService extends BaseService<User> implements IUserService {
 		user.setCreatedTime(currentTime);
 		user.setCreatedUser(currentUser);
 
-		List<RoleUser> roleUsers = new ArrayList<RoleUser>(1);
-		RoleUser ru = new RoleUser();
-		Role role = new Role();
-		role.setId(roleId);
-		ru.setRole(role);
-		ru.setUser(user);
-		roleUsers.add(ru);
-		user.setRoleUsers(roleUsers);
+//		List<RoleUser> roleUsers = new ArrayList<RoleUser>(1);
+//		RoleUser ru = new RoleUser();
+//		Role role = new Role();
+//		role.setId(roleId);
+//		ru.setRole(role);
+//		ru.setUser(user);
+//		roleUsers.add(ru);
+//		user.setRoleUsers(roleUsers);
 		return userDao.createUser(user);
+	}
+	
+	@Override
+	@Transactional
+	public Integer createUser(User user, String nodeIds) {
+		 try {
+			if (StringUtils.isNotEmpty(nodeIds)) {
+			     UserNode userNode;
+			     Node node;
+			     List<UserNode> userNodes = new ArrayList<UserNode>();
+			     String[] nodeIdArray = nodeIds.split(",");
+			     for (String nodeId : nodeIdArray) {
+			    	 userNode = new UserNode();
+			    	 node = new Node();
+			    	 node.setId(Integer.valueOf(nodeId.trim()));
+			    	 userNode.setUser(user);
+			    	 userNode.setNode(node);;
+			    	 userNodes.add(userNode);
+			     }
+			     user.setUserNodes(userNodes);
+			 }
+			 String encodedPassword = passwordEncoder
+						.encode(Constants.DEFAULT_PASSWORD);
+				user.setPassword(encodedPassword);
+				String currentUser = UserContext.getCurrentUserName();
+				Date currentTime = new Date();
+				user.setCreatedTime(currentTime);
+				user.setCreatedUser(currentUser);
+				return userDao.createUser(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			throw new SysException(e);
+		} 
+		 
 	}
 
 	@Override
@@ -258,4 +347,6 @@ public class UserService extends BaseService<User> implements IUserService {
 	public List<User> getUserNoRole(int roleId) {
 		return userDao.getUserNoRole(roleId);
 	}
+
+
 }

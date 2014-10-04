@@ -31,6 +31,28 @@ public class NodeAction extends BaseAction<Node> {
 	}
 	
 	
+	public String findAll(){
+		nodes = nodeService.findAllNodes();
+		return SUCCESS;
+	}
+	
+	public String findByUser(){
+		int userId = Integer.parseInt(((String[]) ActionContext
+				.getContext().getParameters().get("userId"))[0]);
+		nodes = nodeService.findByUser(userId);
+		
+		return SUCCESS;
+		
+	}
+	
+	public String findNoUser(){
+		int userId = Integer.parseInt(((String[]) ActionContext
+				.getContext().getParameters().get("userId"))[0]);
+		nodes = nodeService.findNoUser(userId);
+		
+		return SUCCESS;
+		
+	}
 
 	public String view() {
 		nodeService.writeOperLog("查看节点");
@@ -146,7 +168,7 @@ public class NodeAction extends BaseAction<Node> {
 
 	@Override
 	public long getResultSize(String groupOp,List<Criterion> criteria) {
-		return (long) nodeService.getNodesCount(groupOp,criteria);
+		return nodeService.getNodesCount(groupOp,criteria);
 	}
 
 	@Override

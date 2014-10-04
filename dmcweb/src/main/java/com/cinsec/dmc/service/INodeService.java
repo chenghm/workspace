@@ -24,4 +24,8 @@ public interface INodeService extends IBaseService<Node> {
 
 	List<Node> findAllNodes();
 
+	List<Node> findByUser(int userId);
+
+	List<Node> findNoUser(int userId);
+
 }

@@ -1233,7 +1233,8 @@ a.btn.btn-large,a.btn-icon.btn-large {
 }
 
 @
--moz-document url-prefix () { .btn-icon span { left:-24px;
+-moz-document url-prefix () { .btn-icon span {
+	left: -24px;
 	top: 0px;
 }
 

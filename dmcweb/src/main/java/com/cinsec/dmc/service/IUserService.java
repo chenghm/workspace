@@ -33,4 +33,8 @@ public interface IUserService extends IBaseService<User> {
 
 	List<User> getUserNoRole(int roleId);
 
+	Integer createUser(User user, String nodeIds);
+
+	void modifyUser(User user, String nodeIds);
+
 }

@@ -14,7 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.struts2.json.annotations.JSON;
 
 /**
@@ -24,237 +26,277 @@ import org.apache.struts2.json.annotations.JSON;
 @Entity
 @Table(name = "t_user")
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
 
-    @Column(name = "chinese_name",length=45)
-    private String chineseName;
+	@Column(name = "chinese_name", length = 45)
+	private String chineseName;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_time")
-    private Date createdTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_time")
+	private Date createdTime;
 
-    @Column(name = "created_user",length=45)
-    private String createdUser;
+	@Column(name = "created_user", length = 45)
+	private String createdUser;
 
-    @Column(length=200)
-    private String descn;
+	@Column(length = 200)
+	private String descn;
 
-    @Column(length=45)
-    private String email;
+	@Column(length = 45)
+	private String email;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "login_time")
-    private Date loginTime;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "login_time")
+	private Date loginTime;
 
-    @Column(length=256,nullable=false)
-    private String password;
+	@Column(length = 256, nullable = false)
+	private String password;
 
-    @Column(length=45)
-    private String phone;
+	@Transient
+	private String confirmPassword;
 
-    @Column
-    private Integer status = 1;
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updated_time")
-    private Date updatedTime;
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
-    @Column(name = "updated_user",length=45)
-    private String updatedUser;
+	@Column(length = 45)
+	private String phone;
 
-    @Column(length=45,unique=true,nullable=false)
-    private String username;
+	@Column
+	private Integer status = 1;
 
-    // bi-directional many-to-one association to NodeUser
-//    @OneToMany(mappedBy = "user")
-//    private List<NodeUser> nodeUsers;
+	@Column(name = "user_type", length = 1)
+	private String userType;
 
-    // bi-directional many-to-one association to RoleUser
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL)
-    private List<RoleUser> roleUsers;
+	public String getUserType() {
+		return userType;
+	}
 
-//    private Map<String,String> map ;
-   
-//    private String role;
-    
-    public User() {
-    }
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
 
-    public Integer getId() {
-        return this.id;
-    }
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "updated_time")
+	private Date updatedTime;
 
-    public String getChineseName() {
-        return this.chineseName;
-    }
+	@Column(name = "updated_user", length = 45)
+	private String updatedUser;
 
-    public void setChineseName(String chineseName) {
-        this.chineseName = chineseName;
-    }
+	@Column(length = 45, unique = true, nullable = false)
+	private String username;
 
-    public Date getCreatedTime() {
-        return this.createdTime;
-    }
+	// bi-directional many-to-one association to NodeUser
+	// @OneToMany(mappedBy = "user")
+	// private List<NodeUser> nodeUsers;
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
+	// bi-directional many-to-one association to RoleUser
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval=true)
+	private List<UserNode> userNodes;
 
-    public String getCreatedUser() {
-        return this.createdUser;
-    }
+	// private Map<String,String> map ;
 
-    public void setCreatedUser(String createdUser) {
-        this.createdUser = createdUser;
-    }
+	// private String role;
 
-    public String getDescn() {
-        return this.descn;
-    }
+	public void setUserNodes(List<UserNode> userNodes) {
+		this.userNodes = userNodes;
+	}
 
-    public void setDescn(String descn) {
-        this.descn = descn;
-    }
+	public User() {
+	}
 
-    public String getEmail() {
-        return this.email;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Date getLoginTime() {
-        return this.loginTime;
-    }
+	public String getChineseName() {
+		return this.chineseName;
+	}
 
-    public void setLoginTime(Date loginTime) {
-        this.loginTime = loginTime;
-    }
+	public void setChineseName(String chineseName) {
+		this.chineseName = chineseName;
+	}
 
-    public String getPassword() {
-        return this.password;
-    }
+	public Date getCreatedTime() {
+		return this.createdTime;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public void setCreatedTime(Date createdTime) {
+		this.createdTime = createdTime;
+	}
 
-    public String getPhone() {
-        return this.phone;
-    }
+	public String getCreatedUser() {
+		return this.createdUser;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setCreatedUser(String createdUser) {
+		this.createdUser = createdUser;
+	}
 
-    public Integer getStatus() {
-        return this.status;
-    }
+	public String getDescn() {
+		return this.descn;
+	}
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+	public void setDescn(String descn) {
+		this.descn = descn;
+	}
 
-    public Date getUpdatedTime() {
-        return this.updatedTime;
-    }
+	public String getEmail() {
+		return this.email;
+	}
 
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public String getUpdatedUser() {
-        return this.updatedUser;
-    }
+	public Date getLoginTime() {
+		return this.loginTime;
+	}
 
-    public void setUpdatedUser(String updatedUser) {
-        this.updatedUser = updatedUser;
-    }
+	public void setLoginTime(Date loginTime) {
+		this.loginTime = loginTime;
+	}
 
-    public String getUsername() {
-        return this.username;
-    }
+	public String getPassword() {
+		return this.password;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-//    @JSON(serialize = false)
-//    public List<NodeUser> getNodeUsers() {
-//        return this.nodeUsers;
-//    }
-//
-//    public void setNodeUsers(List<NodeUser> nodeUsers) {
-//        this.nodeUsers = nodeUsers;
-//    }
+	public String getPhone() {
+		return this.phone;
+	}
 
-//    public NodeUser addNodeUsers(NodeUser nodeUsers) {
-//        getNodeUsers().add(nodeUsers);
-//        nodeUsers.setUser(this);
-//
-//        return nodeUsers;
-//    }
-//
-//    public NodeUser removeNodeUsers(NodeUser nodeUsers) {
-//        getNodeUsers().remove(nodeUsers);
-//        nodeUsers.setUser(null);
-//
-//        return nodeUsers;
-//    }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-    @JSON(serialize = false)
-    public List<RoleUser> getRoleUsers() {
-        return this.roleUsers;
-    }
+	public Integer getStatus() {
+		return this.status;
+	}
 
-    public void setRoleUsers(List<RoleUser> roleUsers) {
-        this.roleUsers = roleUsers;
-    }
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 
-    public RoleUser addRoleUsers(RoleUser roleUsers) {
-        getRoleUsers().add(roleUsers);
-        roleUsers.setUser(this);
+	public Date getUpdatedTime() {
+		return this.updatedTime;
+	}
 
-        return roleUsers;
-    }
+	public void setUpdatedTime(Date updatedTime) {
+		this.updatedTime = updatedTime;
+	}
 
-    public RoleUser removeRoleUsers(RoleUser roleUsers) {
-        getRoleUsers().remove(roleUsers);
-        roleUsers.setUser(null);
+	public String getUpdatedUser() {
+		return this.updatedUser;
+	}
 
-        return roleUsers;
-    }
-//    @Transient
-//	public String getRole() {
-//    	List<RoleUser> roleUsers =this.getRoleUsers();
-//    	for(RoleUser ru :roleUsers){
-//    		role =ru.getRole().getName();
-//    	}
-//		return role;
-//	}
+	public void setUpdatedUser(String updatedUser) {
+		this.updatedUser = updatedUser;
+	}
 
-//	public void setRole(String role) {
-//		this.role = role;
-//	}
+	public String getUsername() {
+		return this.username;
+	}
 
-//	 @Transient
-//	public Map<String, String> getMap() {
-//	Map<String,String>	map= new HashMap<String,String>();
-//		map.put("id1", "value1");
-//		map.put("id2", "value2");
-//		return map;
-//	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-//	public void setMap(Map<String, String> map) {
-//		this.map = map;
-//	}
+	// @JSON(serialize = false)
+	// public List<NodeUser> getNodeUsers() {
+	// return this.nodeUsers;
+	// }
+	//
+	// public void setNodeUsers(List<NodeUser> nodeUsers) {
+	// this.nodeUsers = nodeUsers;
+	// }
+
+	// public NodeUser addNodeUsers(NodeUser nodeUsers) {
+	// getNodeUsers().add(nodeUsers);
+	// nodeUsers.setUser(this);
+	//
+	// return nodeUsers;
+	// }
+	//
+	// public NodeUser removeNodeUsers(NodeUser nodeUsers) {
+	// getNodeUsers().remove(nodeUsers);
+	// nodeUsers.setUser(null);
+	//
+	// return nodeUsers;
+	// }
+
+	@Transient
+	public String getNode() {
+		String node = "";
+		List<UserNode> userNodes = this.getUserNodes();
+		if (CollectionUtils.isNotEmpty(userNodes)) {
+			for (UserNode userNode : userNodes) {
+				node += "," + userNode.getNode().getNumber();
+			}
+			node =node.substring(1);
+		}
+		return node;
+
+	}
+
+	@JSON(serialize = false)
+	public List<UserNode> getUserNodes() {
+		return this.userNodes;
+	}
+
+	public UserNode addUserNodes(UserNode userNode) {
+
+		getUserNodes().add(userNode);
+		userNode.setUser(this);
+
+		return userNode;
+	}
+
+	public UserNode removeUserNode(UserNode userNode) {
+		getUserNodes().remove(userNode);
+		userNode.setUser(null);
+		return userNode;
+	}
+	// @Transient
+	// public String getRole() {
+	// List<RoleUser> roleUsers =this.getRoleUsers();
+	// for(RoleUser ru :roleUsers){
+	// role =ru.getRole().getName();
+	// }
+	// return role;
+	// }
+
+	// public void setRole(String role) {
+	// this.role = role;
+	// }
+
+	// @Transient
+	// public Map<String, String> getMap() {
+	// Map<String,String> map= new HashMap<String,String>();
+	// map.put("id1", "value1");
+	// map.put("id2", "value2");
+	// return map;
+	// }
+
+	// public void setMap(Map<String, String> map) {
+	// this.map = map;
+	// }
 }

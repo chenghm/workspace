@@ -29,6 +29,16 @@ public class UserAction extends BaseAction<User> {
 	private String currentPassword;
 	private String newPassword;
 	private String confirmPassword;
+	private String nodeIds;
+	
+	
+	public String getNodeIds() {
+		return nodeIds;
+	}
+
+	public void setNodeIds(String nodeIds) {
+		this.nodeIds = nodeIds;
+	}
 
 	public String find() {
 		userService.writeOperLog("查询用户");
@@ -97,25 +107,25 @@ public class UserAction extends BaseAction<User> {
 	}
 	
 	
-	public String findbyrole(){
-		userService.writeOperLog("查看用户");
-		int roleId = Integer.parseInt(((String[]) ActionContext
-				.getContext().getParameters().get("roleId"))[0]);
-		users = userService.getUserByRole(roleId);
-		
-		return SUCCESS;
-		
-	}
-	
-	public String findnorole(){
-		userService.writeOperLog("查看用户");
-		int roleId = Integer.parseInt(((String[]) ActionContext
-				.getContext().getParameters().get("roleId"))[0]);
-		users = userService.getUserNoRole(roleId);
-		
-		return SUCCESS;
-		
-	}
+//	public String findbyrole(){
+//		userService.writeOperLog("查看用户");
+//		int roleId = Integer.parseInt(((String[]) ActionContext
+//				.getContext().getParameters().get("roleId"))[0]);
+//		users = userService.getUserByRole(roleId);
+//		
+//		return SUCCESS;
+//		
+//	}
+//	
+//	public String findnorole(){
+//		userService.writeOperLog("查看用户");
+//		int roleId = Integer.parseInt(((String[]) ActionContext
+//				.getContext().getParameters().get("roleId"))[0]);
+//		users = userService.getUserNoRole(roleId);
+//		
+//		return SUCCESS;
+//		
+//	}
 
 	public String create() {
 		userService.writeOperLog("创建用户");
@@ -124,7 +134,7 @@ public class UserAction extends BaseAction<User> {
 				ajaxResult = "创建新用户验证失败！";
 				return ERROR;
 			}
-			user.setId(userService.createUser(user));
+			user.setId(userService.createUser(user,nodeIds));
 			ajaxResult = SUCCESS;
 			// user = null;
 			return SUCCESS;
@@ -140,9 +150,11 @@ public class UserAction extends BaseAction<User> {
 		boolean result = true;
 		String chineseName = user.getChineseName();
 		String username = user.getUsername();
+		String password  = user.getPassword();
+		String confirmPassword = user.getConfirmPassword();
 
 		if (StringUtils.isEmpty(chineseName)) {
-			messages.put("error_user_chineseName", "中文名不能为空！");
+			messages.put("error_user_chineseName", "姓名不能为空！");
 			result = false;
 		}
 
@@ -153,6 +165,23 @@ public class UserAction extends BaseAction<User> {
 			messages.put("error_user_username", "用户名已存在！");
 			result = false;
 		}
+		
+		if(StringUtils.isEmpty(password)){
+			messages.put("error_user_password", "密码不能为空！");
+			result = false;
+		}else if(password.length()<6){
+			messages.put("error_user_password", "密码长度不能小于6位！");
+			result = false;
+		}
+		
+		if(StringUtils.isEmpty(confirmPassword)){
+			messages.put("error_user_confirmPassword", "确认密码不能为空！");
+			result = false;
+		}else if(!confirmPassword.equals(password)){
+			messages.put("error_user_confirmPassword", "两次密码不一致！");
+			result = false;
+		}
+		
 //		if(roleId==0){
 //			messages.put("error_user_role", "角色不能为空！");
 //			result = false;
@@ -167,7 +196,7 @@ public class UserAction extends BaseAction<User> {
 			return ERROR;
 		}
 		try {
-			userService.modifyUser(user);
+			userService.modifyUser(user,nodeIds);
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.addActionError(e.getMessage());
